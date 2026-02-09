@@ -33,24 +33,17 @@ const Login: React.FC = () => {
       const data = res.data ?? {};
       const token = data.token;
       const userObj = data.user ?? { email: username };
-
       if (token) {
         setAuthToken(token);
       }
 
-      getList();
-      // Do not store tokens or user in localStorage
-      // navigate("/dashboard");
+      navigate("/dashboard");
     } catch (err: any) {
       setError(err?.message ?? "Unexpected error");
     } finally {
       setLoading(false);
     }
   };
-
-  useEffect(() => {
-    getList();
-  }, []);
 
   const getList = async () => {
     const res = await get("/list");
