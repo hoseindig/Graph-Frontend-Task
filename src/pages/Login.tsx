@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { post, get } from "../api";
+import { post, get, setAuthToken } from "../api";
 
 const Login: React.FC = () => {
   const navigate = useNavigate();
@@ -34,9 +34,12 @@ const Login: React.FC = () => {
       const token = data.token;
       const userObj = data.user ?? { email: username };
 
+      if (token) {
+        setAuthToken(token);
+      }
+
       getList();
-      // For httpOnly cookie flow the server should set the cookie; do not store token in JS
-      localStorage.setItem("user", JSON.stringify(userObj));
+      // Do not store tokens or user in localStorage
       // navigate("/dashboard");
     } catch (err: any) {
       setError(err?.message ?? "Unexpected error");
