@@ -1,14 +1,14 @@
 import api, { normalizeError, setAuthToken, clearAuthToken } from "./client";
-import { AxiosRequestConfig } from "axios";
+import type { AxiosRequestConfig } from "axios";
 
 export type HTTPResult<T> = { ok: true; data: T } | { ok: false; error: { status?: number; message: string; data?: any } };
 
-async function handle<T>(promise: Promise<any>): Promise<HTTPResult<T>> {
+async function handle<T>(promise: Promise<unknown>): Promise<HTTPResult<T>> {
     try {
-        const res = await promise;
+        const res = await promise as { data: T };
         return { ok: true, data: res.data };
-    } catch (err: any) {
-        return { ok: false, error: err };
+    } catch (err: unknown) {
+        return { ok: false, error: (err as any) };
     }
 }
 

@@ -1,25 +1,58 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { post, get } from "../api";
 
 const Login: React.FC = () => {
   const navigate = useNavigate();
-  const [email, setEmail] = useState("");
+  const [username, setUername] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const handleLogin = (e: React.FormEvent) => {
+  const [error, setError] = useState<string | null>(null);
+
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
+    setError(null);
 
-    setTimeout(() => {
-      if (email && password) {
-        localStorage.setItem("user", JSON.stringify({ email }));
-        navigate("/dashboard");
+    try {
+      const res = await post<{ token?: string; user?: { email: string } }>(
+        "/login",
+        {
+          email: username,
+          password,
+        },
+      );
+
+      if (!res.ok) {
+        setError(res.error?.message ?? "Login failed");
+        setLoading(false);
+        return;
       }
+
+      const data = res.data ?? {};
+      const token = data.token;
+      const userObj = data.user ?? { email: username };
+
+      getList();
+      // For httpOnly cookie flow the server should set the cookie; do not store token in JS
+      localStorage.setItem("user", JSON.stringify(userObj));
+      // navigate("/dashboard");
+    } catch (err: any) {
+      setError(err?.message ?? "Unexpected error");
+    } finally {
       setLoading(false);
-    }, 500);
+    }
   };
 
+  useEffect(() => {
+    getList();
+  }, []);
+
+  const getList = async () => {
+    const res = await get("/list");
+    console.log(res);
+  };
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center p-4">
       <div className="bg-white rounded-lg shadow-2xl p-8 w-full max-w-md">
@@ -41,9 +74,9 @@ const Login: React.FC = () => {
             </label>
             <input
               id="email"
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              type="text"
+              value={username}
+              onChange={(e) => setUername(e.target.value)}
               placeholder="you@example.com"
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
               required

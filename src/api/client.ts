@@ -11,6 +11,8 @@ const api: AxiosInstance = axios.create({
     headers: {
         "Content-Type": "application/json",
     },
+    // send cookies (httpOnly) with requests so server can manage auth via Set-Cookie
+    withCredentials: true,
 });
 
 /**
@@ -28,18 +30,9 @@ function clearAuthToken() {
     delete api.defaults.headers.common["Authorization"];
 }
 
-// Attach token from localStorage if available
-api.interceptors.request.use((config: AxiosRequestConfig) => {
-    try {
-        const token = localStorage.getItem("token");
-        if (token && config.headers) {
-            config.headers["Authorization"] = config.headers["Authorization"] || `Bearer ${token}`;
-        }
-    } catch (e) {
-        // ignore
-    }
-    return config;
-});
+// If you use httpOnly cookies for auth, the server should set the cookie on login
+// and the browser will include it automatically when `withCredentials: true` is set.
+// We intentionally do NOT read tokens from `localStorage` here so client JS can't leak them.
 
 // Normalize errors
 function normalizeError(error: AxiosError<unknown>) {
