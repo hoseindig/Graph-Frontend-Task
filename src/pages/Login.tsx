@@ -45,10 +45,6 @@ const Login: React.FC = () => {
     }
   };
 
-  const getList = async () => {
-    const res = await get("/list");
-    console.log(res);
-  };
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center p-4">
       <div className="bg-white rounded-lg shadow-2xl p-8 w-full max-w-md">
