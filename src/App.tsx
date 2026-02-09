@@ -1,13 +1,18 @@
 import "./App.css";
+import Home from "./pages/Home";
 
+/**
+ * Main App Component
+ *
+ * Entry point for the application
+ * Implements React best practices:
+ * - Proper folder structure
+ * - Component composition
+ * - TypeScript strict mode
+ * - ESLint configured
+ */
 function App() {
-  return (
-    <>
-      <button className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition">
-        Test Tailwind
-      </button>
-    </>
-  );
+  return <Home />;
 }
 
 export default App;
