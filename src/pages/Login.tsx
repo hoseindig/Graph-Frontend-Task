@@ -19,7 +19,7 @@ const Login: React.FC = () => {
       const res = await post<{ token?: string; user?: { email: string } }>(
         "/login",
         {
-          email: username,
+          username,
           password,
         },
       );
