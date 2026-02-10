@@ -64,7 +64,7 @@ const FlightCard: React.FC<FlightCardProps> = ({
   class: flightClass = "economy",
 }) => {
   return (
-    <div className="relative bg-white rounded-2xl shadow-lg px-10 my-8 ">
+    <div className="relative bg-white rounded-2xl shadow-lg px-10 cursor-pointer">
       {/* Class Badge */}
       {flightClass && (
         <div className="absolute left-0 top-0 w-40 h-40 overflow-hidden">
