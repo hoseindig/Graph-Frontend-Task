@@ -27,7 +27,7 @@ const FlightFront: React.FC<FlightFrontProps> = ({
 }) => {
   return (
     <div
-      className="absolute inset-0 bg-white rounded-lg flex flex-col items-center justify-center text-white shadow-2xl"
+      className="absolute inset-0 bg-white rounded-lg flex flex-col items-center justify-between text-white shadow-2xl"
       style={{ backfaceVisibility: "hidden" }}
     >
       {flightClass && (
@@ -83,7 +83,7 @@ const FlightFront: React.FC<FlightFrontProps> = ({
       </div>
 
       <div className="flex items-center justify-center pt-2">
-        <div className="border-4 border-dashed border-gray-400 rounded-lg px-8 py-0">
+        <div className="border-2 border-dashed border-gray-400 rounded-lg px-8 py-0">
           <p className="text-4xl font-bold text-gray-900">${price}</p>
         </div>
       </div>
