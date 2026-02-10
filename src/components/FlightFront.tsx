@@ -38,7 +38,7 @@ const FlightFront: React.FC<FlightFrontProps> = ({
         </div>
       )}
 
-      <div className="w-full flex items-center justify-between pt-10 px-8">
+      <div className="w-full flex items-center justify-between pt-10 px-14">
         <div className="flex items-center gap-3">
           {airlineLogo ? (
             <img
@@ -65,9 +65,9 @@ const FlightFront: React.FC<FlightFrontProps> = ({
 
         <div className="flex items-center gap-8">
           <div className="text-center">
-            <p className="text-gray-500 text-sm mb-1">{departure.city}</p>
+            <p className="text-gray-500 text-md mb-1">{departure.city}</p>
             <p className="text-4xl font-bold text-gray-900">{departure.time}</p>
-            <p className="text-gray-400 text-sm mt-1">{departure.date}</p>
+            <p className="text-gray-400 text-md mt-1">{departure.date}</p>
           </div>
 
           <div className="text-gray-400">
@@ -75,9 +75,9 @@ const FlightFront: React.FC<FlightFrontProps> = ({
           </div>
 
           <div className="text-center">
-            <p className="text-gray-500 text-sm mb-1">{arrival.city}</p>
+            <p className="text-gray-500 text-md mb-1">{arrival.city}</p>
             <p className="text-4xl font-bold text-gray-900">{arrival.time}</p>
-            <p className="text-gray-400 text-sm mt-1">{arrival.date}</p>
+            <p className="text-gray-400 text-md mt-1">{arrival.date}</p>
           </div>
         </div>
       </div>
