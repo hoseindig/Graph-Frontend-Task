@@ -66,8 +66,8 @@ const Dashboard: React.FC = () => {
             <span className="font-semibold text-blue-600">{user.username}</span>
           </p>
         </div>
-        <Notebook />
-        {/* <FlightListPage /> */}
+        {/* <Notebook /> */}
+        <FlightListPage />
       </main>
 
       {/* Logout Confirmation Modal */}
