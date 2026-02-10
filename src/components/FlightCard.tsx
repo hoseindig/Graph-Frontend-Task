@@ -145,9 +145,9 @@ const FlightCard: React.FC<FlightCardProps> = ({
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ rotateX: -90, opacity: 0, transformOrigin: "top" }}
+            initial={{ rotateX: 90, opacity: 0, transformOrigin: "top" }}
             animate={{ rotateX: 0, opacity: 1 }}
-            exit={{ rotateX: -90, opacity: 0 }}
+            exit={{ rotateX: 90, opacity: 0 }}
             transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
             className="relative z-10 bg-white rounded-b-2xl px-10 py-8 border-t border-dashed border-gray-300 shadow-inner"
           >
