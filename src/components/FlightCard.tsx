@@ -2,10 +2,13 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 
 interface FlightCardProps {
+  transfer: boolean;
+  gates: number;
+  seat: string;
   airline: string;
   airlineLogo?: string;
-  departure: { city: string; time: string; date: string };
-  arrival: { city: string; time: string; date: string };
+  departure: { city: string; time: string; date: string; iso3: string };
+  arrival: { city: string; time: string; date: string; iso3: string };
   price: number;
   class?: "economy" | "business" | "first";
 }
@@ -54,6 +57,9 @@ const FlightCard: React.FC<FlightCardProps> = ({
   departure,
   arrival,
   price,
+  transfer,
+  gates,
+  seat,
   class: flightClass = "economy",
 }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -87,10 +93,10 @@ const FlightCard: React.FC<FlightCardProps> = ({
                   From
                 </span>
                 <h2 className="text-5xl font-extrabold text-gray-800 tracking-tighter">
-                  BLR
+                  {departure.iso3}
                 </h2>
                 <p className="text-gray-500 text-sm mt-2 leading-tight">
-                  Kempegowda
+                  {departure.city}
                   <br />
                   International
                 </p>
@@ -114,9 +120,9 @@ const FlightCard: React.FC<FlightCardProps> = ({
                 </div>
 
                 {/* باکس قیمت */}
-                <div className="bg-gray-200 px-6 py-2 rounded-lg">
+                <div className="bg-gray-200 px-6 py-0 rounded-lg">
                   <span className="text-2xl font-black text-gray-800">
-                    $100
+                    ${price}
                   </span>
                 </div>
               </div>
@@ -127,10 +133,10 @@ const FlightCard: React.FC<FlightCardProps> = ({
                   To
                 </span>
                 <h2 className="text-5xl font-extrabold text-gray-800 tracking-tighter">
-                  DEL
+                  {arrival.iso3}
                 </h2>
                 <p className="text-gray-500 text-sm mt-2 leading-tight">
-                  Indira Gandhi
+                  {arrival.city}
                   <br />
                   International
                 </p>
@@ -258,22 +264,18 @@ const FlightCard: React.FC<FlightCardProps> = ({
               </div>
 
               <div>
-                <p className="text-xl font-bold text-gray-700">No</p>
-                <p className="text-xs text-gray-400 uppercase">
-                  Transfer [cite: 143]
+                <p className="text-xl font-bold text-gray-700">
+                  {transfer ? "Yes" : "No"}
                 </p>
+                <p className="text-xs text-gray-400 uppercase">Transfer</p>
               </div>
               <div>
-                <p className="text-xl font-bold text-gray-700">8</p>
-                <p className="text-xs text-gray-400 uppercase">
-                  Gate [cite: 143]
-                </p>
+                <p className="text-xl font-bold text-gray-700">{gates}</p>
+                <p className="text-xs text-gray-400 uppercase">Gate</p>
               </div>
               <div>
-                <p className="text-xl font-bold text-gray-700">20A</p>
-                <p className="text-xs text-gray-400 uppercase">
-                  Seat [cite: 143]
-                </p>
+                <p className="text-xl font-bold text-gray-700">{seat}</p>
+                <p className="text-xs text-gray-400 uppercase">Seat</p>
               </div>
             </div>
           </div>

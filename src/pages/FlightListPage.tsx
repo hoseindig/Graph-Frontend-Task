@@ -57,6 +57,7 @@ const FlightListPage: React.FC = () => {
             airlineLogo={f.logoSrc}
             departure={{
               city: f.src.country,
+              iso3: f.src.iso3,
               time: dep.toLocaleTimeString([], {
                 hour: "2-digit",
                 minute: "2-digit",
@@ -68,6 +69,7 @@ const FlightListPage: React.FC = () => {
             }}
             arrival={{
               city: f.dst.country,
+              iso3: f.dst.iso3,
               time: arr.toLocaleTimeString([], {
                 hour: "2-digit",
                 minute: "2-digit",
@@ -77,6 +79,9 @@ const FlightListPage: React.FC = () => {
                 day: "numeric",
               }),
             }}
+            transfer={f.transfer}
+            gates={f.gates}
+            seat={f.seat}
             price={Number(f.price)}
             class={f.class}
           />
