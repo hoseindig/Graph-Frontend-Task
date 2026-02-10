@@ -70,7 +70,7 @@ const FlightListPage: React.FC = () => {
   }, [navigate]);
 
   return (
-    <div className=" space-y-20">
+    <div className=" space-y-10">
       {flights.map((f, i) => {
         const dep = new Date(f.src.time);
         const arr = new Date(f.dst.time);
