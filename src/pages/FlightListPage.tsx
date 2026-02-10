@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import FlightCard from "../components/FlightCard";
 import { useNavigate } from "react-router";
 import { get } from "../api";
@@ -58,6 +58,8 @@ const FlightListPage: React.FC = () => {
   const [pageSize] = useState(3);
   const [pageNum, setPageNum] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
+  const bottomRef = useRef<HTMLDivElement>(null);
+  const isInitialLoad = useRef(true);
 
   const getFlightList = async (pageNumber: number = 1) => {
     setPageNum(pageNumber);
@@ -89,6 +91,13 @@ const FlightListPage: React.FC = () => {
   useEffect(() => {
     getFlightList(1);
   }, [navigate]);
+
+  useEffect(() => {
+    if (!isInitialLoad.current && !isLoading && pageNum > 1) {
+      bottomRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
+    }
+    isInitialLoad.current = false;
+  }, [pageNum, isLoading]);
 
   return (
     <div className=" space-y-10">
@@ -140,9 +149,9 @@ const FlightListPage: React.FC = () => {
           />
         );
       })}
-      <div className="flex items-center justify-center pt-10">
+      <div className="flex items-center justify-center pt-10" ref={bottomRef}>
         {totalPages === pageNum ? (
-          <p>all data laoded</p>
+          <p>All Data was laoded</p>
         ) : (
           <button
             onClick={handleLoadMore}
