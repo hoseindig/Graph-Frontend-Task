@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import CustomModal from "../components/CustomModal";
 import { get } from "../api";
 import FlightListPage from "./FlightListPage";
+import Notebook from "../components/Notebook";
 
 interface User {
   username: string;
@@ -65,7 +66,8 @@ const Dashboard: React.FC = () => {
             <span className="font-semibold text-blue-600">{user.username}</span>
           </p>
         </div>
-        <FlightListPage />
+        <Notebook />
+        {/* <FlightListPage /> */}
       </main>
 
       {/* Logout Confirmation Modal */}
