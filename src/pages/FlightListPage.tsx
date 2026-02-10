@@ -44,7 +44,7 @@ const FlightListPage: React.FC = () => {
   }, [navigate]);
 
   return (
-    <div className=" space-y-6">
+    <div className=" space-y-4">
       {flights.map((f, i) => {
         const dep = new Date(f.src.time);
         const arr = new Date(f.dst.time);
@@ -60,7 +60,10 @@ const FlightListPage: React.FC = () => {
                 hour: "2-digit",
                 minute: "2-digit",
               }),
-              date: dep.toLocaleDateString(),
+              date: dep.toLocaleDateString("en-US", {
+                month: "short",
+                day: "numeric",
+              }),
             }}
             arrival={{
               city: f.dst.country,
@@ -68,7 +71,10 @@ const FlightListPage: React.FC = () => {
                 hour: "2-digit",
                 minute: "2-digit",
               }),
-              date: arr.toLocaleDateString(),
+              date: arr.toLocaleDateString("en-US", {
+                month: "short",
+                day: "numeric",
+              }),
             }}
             price={Number(f.price)}
             class={f.class}

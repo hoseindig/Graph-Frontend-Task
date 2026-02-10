@@ -104,7 +104,7 @@ const FlightCard: React.FC<FlightCardProps> = ({
         {/* Flight Details */}
         <div className="flex items-center gap-8">
           {/* Departure */}
-          <div className="text-right">
+          <div className="text-center">
             <p className="text-gray-500 text-sm mb-1">{departure.city}</p>
             <p className="text-4xl font-bold text-gray-900">
               {formatTo24(departure.time)}
@@ -114,13 +114,11 @@ const FlightCard: React.FC<FlightCardProps> = ({
 
           {/* Plane Icon */}
           <div className="text-gray-400">
-            <svg viewBox="0 0 24 24" className="w-12 h-12" fill="currentColor">
-              <path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z" />
-            </svg>
+            <img src="/images/airplane.png" className="w-16 object-contain" />
           </div>
 
           {/* Arrival */}
-          <div className="text-left">
+          <div className="text-center">
             <p className="text-gray-500 text-sm mb-1">{arrival.city}</p>
             <p className="text-4xl font-bold text-gray-900">
               {formatTo24(arrival.time)}
