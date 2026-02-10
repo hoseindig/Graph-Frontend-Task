@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import CustomModal from "../components/CustomModal";
 import { get } from "../api";
+import FlightCard from "../components/FlightCard";
+import FlightListPage from "./FlightListPage";
 
 interface User {
   username: string;
@@ -10,6 +12,7 @@ interface User {
 const Dashboard: React.FC = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState<User | null>(null);
+  const [flights, setFlights] = useState<any[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const getuserdata = async () => {
@@ -22,8 +25,20 @@ const Dashboard: React.FC = () => {
     }
   };
 
+  const getFlightList = async () => {
+    try {
+      const res = await get("/list?page=1&size=3");
+      console.log(res);
+      const flights = res.data.result;
+      setFlights(flights);
+    } catch (error) {
+      navigate("/login");
+    }
+  };
+
   useEffect(() => {
     getuserdata();
+    getFlightList();
   }, [navigate]);
 
   const handleLogout = () => {
@@ -64,87 +79,7 @@ const Dashboard: React.FC = () => {
             <span className="font-semibold text-blue-600">{user.username}</span>
           </p>
         </div>
-
-        {/* Stats Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-          {/* Stat Card 1 */}
-          <div className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-gray-500 text-sm font-medium">Total Users</p>
-                <p className="text-3xl font-bold text-gray-800 mt-2">1,234</p>
-              </div>
-              <div className="bg-blue-100 rounded-full p-3">
-                <svg
-                  className="w-6 h-6 text-blue-600"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
-                </svg>
-              </div>
-            </div>
-          </div>
-
-          {/* Stat Card 2 */}
-          <div className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-gray-500 text-sm font-medium">Projects</p>
-                <p className="text-3xl font-bold text-gray-800 mt-2">24</p>
-              </div>
-              <div className="bg-green-100 rounded-full p-3">
-                <svg
-                  className="w-6 h-6 text-green-600"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" />
-                </svg>
-              </div>
-            </div>
-          </div>
-
-          {/* Stat Card 3 */}
-          <div className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-gray-500 text-sm font-medium">Tasks</p>
-                <p className="text-3xl font-bold text-gray-800 mt-2">12</p>
-              </div>
-              <div className="bg-purple-100 rounded-full p-3">
-                <svg
-                  className="w-6 h-6 text-purple-600"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
-                </svg>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Content Section */}
-        <div className="bg-white rounded-lg shadow-md p-8">
-          <h3 className="text-xl font-bold text-gray-800 mb-4">
-            Quick Actions
-          </h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <button className="px-4 py-3 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition duration-200 font-medium">
-              Create New Project
-            </button>
-            <button className="px-4 py-3 bg-green-500 hover:bg-green-600 text-white rounded-lg transition duration-200 font-medium">
-              View Reports
-            </button>
-            <button className="px-4 py-3 bg-purple-500 hover:bg-purple-600 text-white rounded-lg transition duration-200 font-medium">
-              Settings
-            </button>
-            <button className="px-4 py-3 bg-orange-500 hover:bg-orange-600 text-white rounded-lg transition duration-200 font-medium">
-              Help & Support
-            </button>
-          </div>
-        </div>
+        <FlightListPage />
       </main>
 
       {/* Logout Confirmation Modal */}
