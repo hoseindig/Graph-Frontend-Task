@@ -172,11 +172,50 @@ const FlightCard: React.FC<FlightCardProps> = ({
               transform: "rotateX(180deg)", // برگرداندن محتوا حول محور X
             }}
           >
-            <h3 className="text-lg font-bold text-gray-800">صفحه ۱</h3>
+            {/* <h3 className="text-lg font-bold text-gray-800">صفحه ۱</h3>
             <hr className="my-2" />
             <p className="text-sm text-gray-600 leading-relaxed">
               این محتوای بخش پایینی است که به سمت پایین باز شده است.
-            </p>
+            </p> */}
+            <div className="grid grid-cols-3 gap-y-8 text-left">
+              <div>
+                <p className="text-xl font-bold text-gray-700">6:20 - 8:45</p>
+                <p className="text-xs text-gray-400 uppercase">
+                  Flight Time [cite: 143]
+                </p>
+              </div>
+              <div>
+                <p className="text-xl font-bold text-gray-700">2h 25 min</p>
+                <p className="text-xs text-gray-400 uppercase">
+                  Duration [cite: 143]
+                </p>
+              </div>
+              <div>
+                <p className="text-xl font-bold text-gray-700">5:35</p>
+                <p className="text-xs text-gray-400 uppercase">
+                  Boarding [cite: 143]
+                </p>
+              </div>
+
+              <div>
+                <p className="text-xl font-bold text-gray-700">No</p>
+                <p className="text-xs text-gray-400 uppercase">
+                  Transfer [cite: 143]
+                </p>
+              </div>
+              <div>
+                <p className="text-xl font-bold text-gray-700">8</p>
+                <p className="text-xs text-gray-400 uppercase">
+                  Gate [cite: 143]
+                </p>
+              </div>
+              <div>
+                <p className="text-xl font-bold text-gray-700">20A</p>
+                <p className="text-xs text-gray-400 uppercase">
+                  Seat [cite: 143]
+                </p>
+              </div>
+            </div>
           </div>
         </motion.div>
       </motion.div>
