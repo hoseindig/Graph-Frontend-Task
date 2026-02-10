@@ -17,6 +17,44 @@ interface FlightCardProps {
   class?: "economy" | "business" | "first";
 }
 
+// format various time string inputs to 24-hour `HH:mm`
+function formatTo24(timeStr: string) {
+  if (!timeStr) return "";
+  const s = timeStr.trim();
+
+  // ISO datetime -> local time
+  if (/^\d{4}-\d{2}-\d{2}T/.test(s)) {
+    const d = new Date(s);
+    if (isNaN(d.getTime())) return s;
+    const hh = String(d.getHours()).padStart(2, "0");
+    const mm = String(d.getMinutes()).padStart(2, "0");
+    return `${hh}:${mm}`;
+  }
+
+  // h:mm AM/PM or h:mmAM/PM
+  const ampmMatch =
+    s.match(/^(\d{1,2}):(\d{2})\s*([AaPp][.]? ?[Mm][.]?)$/) ||
+    s.match(/^(\d{1,2})(:\d{2})?\s*([AaPp][.]? ?[Mm][.]?)$/);
+  if (ampmMatch) {
+    const h = parseInt(ampmMatch[1], 10);
+    const mm = (ampmMatch[2] || ":00").replace(":", "").slice(0, 2);
+    const ampm = ampmMatch[3].toLowerCase();
+    let hour = h % 12;
+    if (ampm.startsWith("p")) hour += 12;
+    return `${String(hour).padStart(2, "0")}:${String(mm).padStart(2, "0")}`;
+  }
+
+  // already H:MM or HH:MM
+  const hhmm = s.match(/^(\d{1,2}):(\d{2})$/);
+  if (hhmm) {
+    const hh = String(parseInt(hhmm[1], 10)).padStart(2, "0");
+    const mm = String(parseInt(hhmm[2], 10)).padStart(2, "0");
+    return `${hh}:${mm}`;
+  }
+
+  return s;
+}
+
 const FlightCard: React.FC<FlightCardProps> = ({
   airline,
   airlineLogo,
@@ -68,7 +106,9 @@ const FlightCard: React.FC<FlightCardProps> = ({
           {/* Departure */}
           <div className="text-right">
             <p className="text-gray-500 text-sm mb-1">{departure.city}</p>
-            <p className="text-4xl font-bold text-gray-900">{departure.time}</p>
+            <p className="text-4xl font-bold text-gray-900">
+              {formatTo24(departure.time)}
+            </p>
             <p className="text-gray-400 text-sm mt-1">{departure.date}</p>
           </div>
 
@@ -82,7 +122,9 @@ const FlightCard: React.FC<FlightCardProps> = ({
           {/* Arrival */}
           <div className="text-left">
             <p className="text-gray-500 text-sm mb-1">{arrival.city}</p>
-            <p className="text-4xl font-bold text-gray-900">{arrival.time}</p>
+            <p className="text-4xl font-bold text-gray-900">
+              {formatTo24(arrival.time)}
+            </p>
             <p className="text-gray-400 text-sm mt-1">{arrival.date}</p>
           </div>
         </div>
