@@ -71,7 +71,6 @@ const FlightListPage: React.FC = () => {
 
   return (
     <div className=" space-y-20">
-      {flights.length}
       {flights.map((f, i) => {
         const dep = new Date(f.src.time);
         const arr = new Date(f.dst.time);

@@ -8,8 +8,20 @@ interface FlightCardProps {
   seat: string;
   airline: string;
   airlineLogo?: string;
-  departure: { city: string; time: string; date: string; iso3: string };
-  arrival: { city: string; time: string; date: string; iso3: string };
+  departure: {
+    city: string;
+    time: string;
+    date: string;
+    iso3: string;
+    airline: string;
+  };
+  arrival: {
+    city: string;
+    time: string;
+    date: string;
+    iso3: string;
+    airline: string;
+  };
   price: number;
   class?: "economy" | "business" | "first";
   duration?: string;
@@ -76,7 +88,7 @@ const FlightCard: React.FC<FlightCardProps> = ({
       <motion.div
         className="relative w-full h-[210px] cursor-pointer"
         animate={{ marginBottom: isOpen ? 200 : 0 }} // جابه‌جایی به بالا به اندازه نصف ارتفاع
-        transition={{ duration: 0.8, ease: "easeInOut" }}
+        transition={{ duration: 0.5, ease: "easeInOut" }}
         style={{ perspective: "1500px" }}
         onClick={() => setIsOpen(!isOpen)}
       >
@@ -87,7 +99,7 @@ const FlightCard: React.FC<FlightCardProps> = ({
               {/* نوار قرمز گوشه (Economy Badge) */}
               {flightClass && (
                 <div className="absolute left-0 top-0 w-40 h-40 overflow-hidden">
-                  <div className="absolute bg-red-600 text-white px-10 py-2 transform -rotate-45 -left-10 top-4 text-lg font-semibold shadow-md  tracking-wide first-letter:uppercase">
+                  <div className="absolute bg-red-600 text-white px-10 py-2 transform -rotate-45 -left-10 top-4 text-xl font-semibold shadow-md  tracking-wide first-letter:uppercase">
                     {flightClass}
                   </div>
                 </div>
@@ -156,7 +168,7 @@ const FlightCard: React.FC<FlightCardProps> = ({
           className="absolute inset-0 z-10 origin-bottom" // چرخش حول لبه پایینی
           style={{ transformStyle: "preserve-3d" }}
           animate={{ rotateX: isOpen ? -180 : 0 }} // چرخش حول محور X
-          transition={{ duration: 0.8, ease: "easeInOut" }}
+          transition={{ duration: 0.5, ease: "easeInOut" }}
         >
           {/* روی جلد (Front Cover) */}
           <div
@@ -249,34 +261,46 @@ const FlightCard: React.FC<FlightCardProps> = ({
                 <p className="text-xl font-bold text-gray-700">
                   {flightTimeRange || "N/A"}
                 </p>
-                <p className="text-xs text-gray-400 uppercase">Flight Time</p>
+                <p className="text-md text-gray-400 first-letter:uppercase">
+                  Flight Time
+                </p>
               </div>
               <div>
                 <p className="text-xl font-bold text-gray-700">
                   {duration || "N/A"}
                 </p>
-                <p className="text-xs text-gray-400 uppercase">Duration</p>
+                <p className="text-md text-gray-400 first-letter:uppercase">
+                  Duration
+                </p>
               </div>
               <div>
                 <p className="text-xl font-bold text-gray-700">
                   {boarding || "N/A"}
                 </p>
-                <p className="text-xs text-gray-400 uppercase">Boarding</p>
+                <p className="text-md text-gray-400 first-letter:uppercase">
+                  Boarding
+                </p>
               </div>
 
               <div>
                 <p className="text-xl font-bold text-gray-700">
                   {transfer ? "Yes" : "No"}
                 </p>
-                <p className="text-xs text-gray-400 uppercase">Transfer</p>
+                <p className="text-md text-gray-400 first-letter:uppercase">
+                  Transfer
+                </p>
               </div>
               <div>
                 <p className="text-xl font-bold text-gray-700">{gates}</p>
-                <p className="text-xs text-gray-400 uppercase">Gate</p>
+                <p className="text-md text-gray-400 first-letter:uppercase">
+                  Gate
+                </p>
               </div>
               <div>
                 <p className="text-xl font-bold text-gray-700">{seat}</p>
-                <p className="text-xs text-gray-400 uppercase">Seat</p>
+                <p className="text-md text-gray-400 first-letter:uppercase">
+                  Seat
+                </p>
               </div>
             </div>
           </div>
