@@ -3,6 +3,31 @@ import FlightCard from "../components/FlightCard";
 import { useNavigate } from "react-router";
 import { get } from "../api";
 
+// Helper function to calculate flight duration
+function calculateFlightDuration(
+  departureTime: Date,
+  arrivalTime: Date,
+): string {
+  const durationMs = arrivalTime.getTime() - departureTime.getTime();
+  const totalMinutes = Math.floor(durationMs / 1000 / 60);
+  const hours = Math.floor(totalMinutes / 60);
+  const minutes = totalMinutes % 60;
+
+  if (hours > 0) {
+    return `${hours}h ${minutes}min`;
+  }
+  return `${minutes}min`;
+}
+
+// Helper function to format flight time range (e.g., "14:20 - 16:45")
+function formatFlightTimeRange(departureTime: Date, arrivalTime: Date): string {
+  const depHours = String(departureTime.getHours()).padStart(2, "0");
+  const depMinutes = String(departureTime.getMinutes()).padStart(2, "0");
+  const arrHours = String(arrivalTime.getHours()).padStart(2, "0");
+  const arrMinutes = String(arrivalTime.getMinutes()).padStart(2, "0");
+  return `${depHours}:${depMinutes} - ${arrHours}:${arrMinutes}`;
+}
+
 type AirportInfo = {
   country: string;
   iso3: string;
@@ -19,6 +44,7 @@ export interface FlightItem {
   transfer: boolean;
   gates: number;
   seat: string;
+  airline: string;
   price: string | number;
   class: "economy" | "business" | "first";
 }
@@ -49,6 +75,8 @@ const FlightListPage: React.FC = () => {
       {flights.map((f, i) => {
         const dep = new Date(f.src.time);
         const arr = new Date(f.dst.time);
+        const duration = calculateFlightDuration(dep, arr);
+        const flightTimeRange = formatFlightTimeRange(dep, arr);
 
         return (
           <FlightCard
@@ -56,6 +84,7 @@ const FlightListPage: React.FC = () => {
             airline={`${f.src.airline} → ${f.dst.airline}`}
             airlineLogo={f.logoSrc}
             departure={{
+              airline: f.src.airline,
               city: f.src.country,
               iso3: f.src.iso3,
               time: dep.toLocaleTimeString([], {
@@ -68,6 +97,7 @@ const FlightListPage: React.FC = () => {
               }),
             }}
             arrival={{
+              airline: f.src.airline,
               city: f.dst.country,
               iso3: f.dst.iso3,
               time: arr.toLocaleTimeString([], {
@@ -80,10 +110,13 @@ const FlightListPage: React.FC = () => {
               }),
             }}
             transfer={f.transfer}
+            boarding={f.boarding}
             gates={f.gates}
             seat={f.seat}
             price={Number(f.price)}
             class={f.class}
+            duration={duration}
+            flightTimeRange={flightTimeRange}
           />
         );
       })}

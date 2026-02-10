@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 
 interface FlightCardProps {
   transfer: boolean;
+  boarding: string;
   gates: number;
   seat: string;
   airline: string;
@@ -11,6 +12,8 @@ interface FlightCardProps {
   arrival: { city: string; time: string; date: string; iso3: string };
   price: number;
   class?: "economy" | "business" | "first";
+  duration?: string;
+  flightTimeRange?: string;
 }
 
 // format various time string inputs to 24-hour `HH:mm`
@@ -61,6 +64,9 @@ const FlightCard: React.FC<FlightCardProps> = ({
   gates,
   seat,
   class: flightClass = "economy",
+  duration,
+  boarding,
+  flightTimeRange,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -96,9 +102,9 @@ const FlightCard: React.FC<FlightCardProps> = ({
                   {departure.iso3}
                 </h2>
                 <p className="text-gray-500 text-sm mt-2 leading-tight">
-                  {departure.city}
-                  <br />
-                  International
+                  {departure.airline}
+                  {/* <br />
+                  International */}
                 </p>
               </div>
 
@@ -136,9 +142,9 @@ const FlightCard: React.FC<FlightCardProps> = ({
                   {arrival.iso3}
                 </h2>
                 <p className="text-gray-500 text-sm mt-2 leading-tight">
-                  {arrival.city}
-                  <br />
-                  International
+                  {arrival.airline}
+                  {/* <br />
+                  International */}
                 </p>
               </div>
             </div>
@@ -238,29 +244,24 @@ const FlightCard: React.FC<FlightCardProps> = ({
               transform: "rotateX(180deg)", // برگرداندن محتوا حول محور X
             }}
           >
-            {/* <h3 className="text-lg font-bold text-gray-800">صفحه ۱</h3>
-            <hr className="my-2" />
-            <p className="text-sm text-gray-600 leading-relaxed">
-              این محتوای بخش پایینی است که به سمت پایین باز شده است.
-            </p> */}
             <div className="grid grid-cols-3 gap-y-8 text-left">
               <div>
-                <p className="text-xl font-bold text-gray-700">6:20 - 8:45</p>
-                <p className="text-xs text-gray-400 uppercase">
-                  Flight Time [cite: 143]
+                <p className="text-xl font-bold text-gray-700">
+                  {flightTimeRange || "N/A"}
                 </p>
+                <p className="text-xs text-gray-400 uppercase">Flight Time</p>
               </div>
               <div>
-                <p className="text-xl font-bold text-gray-700">2h 25 min</p>
-                <p className="text-xs text-gray-400 uppercase">
-                  Duration [cite: 143]
+                <p className="text-xl font-bold text-gray-700">
+                  {duration || "N/A"}
                 </p>
+                <p className="text-xs text-gray-400 uppercase">Duration</p>
               </div>
               <div>
-                <p className="text-xl font-bold text-gray-700">5:35</p>
-                <p className="text-xs text-gray-400 uppercase">
-                  Boarding [cite: 143]
+                <p className="text-xl font-bold text-gray-700">
+                  {boarding || "N/A"}
                 </p>
+                <p className="text-xs text-gray-400 uppercase">Boarding</p>
               </div>
 
               <div>
