@@ -59,11 +59,11 @@ const FlightCard: React.FC<FlightCardProps> = ({
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-200 p-4">
+    <div className="flex items-center justify-center  p-4">
       {/* Container اصلی - جابه‌جایی عمودی برای مرکز ماندن هنگام باز شدن */}
       <motion.div
         className="relative w-full h-[210px] cursor-pointer"
-        animate={{ y: isOpen ? -200 : 0 }} // جابه‌جایی به بالا به اندازه نصف ارتفاع
+        animate={{ marginBottom: isOpen ? 200 : 0 }} // جابه‌جایی به بالا به اندازه نصف ارتفاع
         transition={{ duration: 0.8, ease: "easeInOut" }}
         style={{ perspective: "1500px" }}
         onClick={() => setIsOpen(!isOpen)}
