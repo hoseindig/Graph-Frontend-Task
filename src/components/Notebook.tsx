@@ -5,58 +5,62 @@ const Notebook = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100 p-4">
-      {/* Container اصلی با قابلیت Perspective برای سه بعدی نشان دادن */}
-      <div
+    <div className="flex items-center justify-center min-h-screen bg-gray-200 p-4">
+      {/* Container اصلی که کل کتاب را جابه‌جا می‌کند تا در مرکز بماند */}
+      <motion.div
         className="relative w-[300px] h-[400px] cursor-pointer"
+        animate={{ x: isOpen ? 150 : 0 }} // جابه‌جایی به راست به اندازه نصف عرض
+        transition={{ duration: 0.8, ease: "easeInOut" }}
         style={{ perspective: "1500px" }}
         onClick={() => setIsOpen(!isOpen)}
       >
-        {/* صفحات داخلی (این بخش ثابت است و زیر جلد قرار دارد) */}
-        <div className="absolute inset-0 flex shadow-2xl">
-          <div className="w-1/2 h-full bg-white border-r border-gray-200 rounded-l-lg p-4">
-            <h3 className="text-sm font-bold">صفحه ۱</h3>
-            <p className="text-xs mt-2 text-gray-600">
-              محتوای سمت راست دفتر اینجا قرار می‌گیرد.
-            </p>
-          </div>
-          <div className="w-1/2 h-full bg-white rounded-r-lg p-4">
-            <h3 className="text-sm font-bold">صفحه ۲</h3>
-            <p className="text-xs mt-2 text-gray-600">
-              محتوای سمت چپ دفتر اینجا قرار می‌گیرد.
+        {/* صفحه ۲ (صفحه ثابت سمت راست که زیر جلد است) */}
+        <div className="absolute inset-0 z-0">
+          <div className="w-full h-full bg-white rounded-r-lg shadow-lg border-l border-gray-100 p-6">
+            <h3 className="text-lg font-bold text-gray-800">صفحه ۲</h3>
+            <hr className="my-2" />
+            <p className="text-sm text-gray-600 leading-relaxed">
+              این محتوای صفحه سمت راست است که پس از باز شدن جلد نمایان می‌شود.
             </p>
           </div>
         </div>
 
-        {/* جلد دفتر که می‌چرخد */}
+        {/* لایه متحرک: شامل "روی جلد" و "صفحه ۱" */}
         <motion.div
           className="absolute inset-0 z-10 origin-left"
-          initial={false}
+          style={{ transformStyle: "preserve-3d" }}
           animate={{ rotateY: isOpen ? -180 : 0 }}
           transition={{ duration: 0.8, ease: "easeInOut" }}
-          style={{ transformStyle: "preserve-3d" }}
         >
-          {/* روی جلد */}
+          {/* روی جلد (Front Cover) */}
           <div
-            className="absolute inset-0 bg-blue-700 rounded-lg flex items-center justify-center text-white shadow-xl"
+            className="absolute inset-0 bg-blue-800 rounded-lg flex flex-col items-center justify-center text-white shadow-2xl"
             style={{ backfaceVisibility: "hidden" }}
           >
-            <div className="text-center">
-              <h2 className="text-xl font-bold">جلد دفتر</h2>
-              <p className="text-sm opacity-80">برای باز کردن کلیک کنید</p>
+            <div className="border-2 border-white/20 p-8 rounded-md flex flex-col items-center">
+              <h2 className="text-2xl font-serif font-bold">دفترچه یادداشت</h2>
+              <div className="w-12 h-1 bg-yellow-500 mt-2"></div>
             </div>
+            <p className="absolute bottom-6 text-xs opacity-60">کلیک کنید</p>
           </div>
 
-          {/* پشت جلد (وقتی باز می‌شود این قسمت دیده می‌شود که معمولاً سفید یا همرنگ صفحات است) */}
+          {/* صفحه ۱ (پشت جلد - وقتی باز می‌شود سمت چپ قرار می‌گیرد) */}
           <div
-            className="absolute inset-0 bg-gray-50 rounded-lg"
+            className="absolute inset-0 bg-white rounded-l-lg shadow-inner p-6"
             style={{
               backfaceVisibility: "hidden",
-              transform: "rotateY(180deg)",
+              transform: "rotateY(180deg)", // برگرداندن محتوا تا درست دیده شود
             }}
-          ></div>
+          >
+            <h3 className="text-lg font-bold text-gray-800">صفحه ۱</h3>
+            <hr className="my-2" />
+            <p className="text-sm text-gray-600 leading-relaxed">
+              این محتوای صفحه سمت چپ است. حالا کتاب کاملاً باز شده و دو صفحه
+              کنار هم هستند.
+            </p>
+          </div>
         </motion.div>
-      </div>
+      </motion.div>
     </div>
   );
 };
