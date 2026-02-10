@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import CustomModal from "../components/CustomModal";
 import { get } from "../api";
-import FlightCard from "../components/FlightCard";
 import FlightListPage from "./FlightListPage";
 
 interface User {
@@ -12,7 +11,6 @@ interface User {
 const Dashboard: React.FC = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState<User | null>(null);
-  const [flights, setFlights] = useState<any[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const getuserdata = async () => {
@@ -25,20 +23,8 @@ const Dashboard: React.FC = () => {
     }
   };
 
-  const getFlightList = async () => {
-    try {
-      const res = await get("/list?page=1&size=3");
-      console.log(res);
-      const flights = res.data.result;
-      setFlights(flights);
-    } catch (error) {
-      navigate("/login");
-    }
-  };
-
   useEffect(() => {
     getuserdata();
-    getFlightList();
   }, [navigate]);
 
   const handleLogout = () => {

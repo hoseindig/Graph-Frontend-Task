@@ -43,7 +43,8 @@ const FlightCard: React.FC<FlightCardProps> = ({
             <img
               src={airlineLogo}
               alt={airline}
-              className="w-12 h-12 object-contain"
+              width={200}
+              className="w-52 object-contain"
             />
           ) : (
             <div className="w-12 h-12 rounded-full border-2 border-gray-800 flex items-center justify-center">
@@ -59,7 +60,7 @@ const FlightCard: React.FC<FlightCardProps> = ({
               </svg>
             </div>
           )}
-          <h2 className="text-2xl font-bold text-gray-900">{airline}</h2>
+          {/* <h2 className="text-2xl font-bold text-gray-900">{airline}</h2> */}
         </div>
 
         {/* Flight Details */}
@@ -95,28 +96,4 @@ const FlightCard: React.FC<FlightCardProps> = ({
   );
 };
 
-// Example usage
-const App: React.FC = () => {
-  return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center p-8">
-      <FlightCard
-        airline="Lufthansa"
-        airlineLogo="images/logo/lufthansa.png"
-        departure={{
-          city: "Bengaluru",
-          time: "6:20",
-          date: "June 12",
-        }}
-        arrival={{
-          city: "New Delhi",
-          time: "8:45",
-          date: "June 12",
-        }}
-        price={100}
-        class="economy"
-      />
-    </div>
-  );
-};
-
-export default App;
+export default FlightCard;

@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import FlightCard from "../components/FlightCard";
+import { useNavigate } from "react-router";
+import { get } from "../api";
 
 type AirportInfo = {
   country: string;
@@ -23,7 +25,7 @@ export interface FlightItem {
 
 const sampleFlights: FlightItem[] = [
   {
-    logoSrc: "https://beebom.com/wp-content/uploads/2018/12/Lufthansa-Logo.jpg",
+    logoSrc: "logo/Lufthansa.png",
     logoStyle: { height: "51px", margin: "22px 12px" },
     src: {
       country: "Algeria",
@@ -47,9 +49,27 @@ const sampleFlights: FlightItem[] = [
 ];
 
 const FlightListPage: React.FC = () => {
+  const navigate = useNavigate();
+
+  const [flights, setFlights] = useState<any[]>([]);
+
+  useEffect(() => {
+    getFlightList();
+  }, [navigate]);
+
+  const getFlightList = async () => {
+    try {
+      const res = await get("/list?page=1&size=3");
+      console.log(res);
+      const flights = res.data.result;
+      setFlights(flights);
+    } catch (error) {
+      navigate("/login");
+    }
+  };
   return (
     <div className=" space-y-4">
-      {sampleFlights.map((f, i) => {
+      {flights.map((f, i) => {
         const dep = new Date(f.src.time);
         const arr = new Date(f.dst.time);
 
