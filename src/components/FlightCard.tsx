@@ -26,17 +26,17 @@ const FlightCard: React.FC<FlightCardProps> = ({
   class: flightClass = "economy",
 }) => {
   return (
-    <div className="relative bg-white rounded-2xl shadow-lg p-6 max-w-2xl">
+    <div className="relative bg-white rounded-2xl shadow-lg px-10 my-8 ">
       {/* Class Badge */}
       {flightClass && (
-        <div className="absolute left-0 top-0 w-24 h-24 overflow-hidden">
-          <div className="absolute bg-red-600 text-white px-10 py-1.5 transform -rotate-45 -left-8 top-4 text-xs font-semibold shadow-md uppercase tracking-wide">
+        <div className="absolute left-0 top-0 w-40 h-40 overflow-hidden">
+          <div className="absolute bg-red-600 text-white px-10 py-2 transform -rotate-45 -left-10 top-4 text-lg font-semibold shadow-md  tracking-wide first-letter:uppercase">
             {flightClass}
           </div>
         </div>
       )}
 
-      <div className="flex items-center justify-between pt-2">
+      <div className="flex items-center justify-between pt-10">
         {/* Airline Logo & Name */}
         <div className="flex items-center gap-3">
           {airlineLogo ? (
@@ -44,7 +44,7 @@ const FlightCard: React.FC<FlightCardProps> = ({
               src={airlineLogo}
               alt={airline}
               width={200}
-              className="w-52 object-contain"
+              className="w-56 object-contain"
             />
           ) : (
             <div className="w-12 h-12 rounded-full border-2 border-gray-800 flex items-center justify-center">
@@ -86,9 +86,11 @@ const FlightCard: React.FC<FlightCardProps> = ({
             <p className="text-gray-400 text-sm mt-1">{arrival.date}</p>
           </div>
         </div>
+      </div>
 
+      <div className="flex items-center justify-center pt-2">
         {/* Price */}
-        <div className="border-2 border-dashed border-gray-300 rounded-lg px-8 py-3">
+        <div className="border-4 border-dashed border-gray-400 rounded-lg px-8 py-0">
           <p className="text-4xl font-bold text-gray-900">${price}</p>
         </div>
       </div>

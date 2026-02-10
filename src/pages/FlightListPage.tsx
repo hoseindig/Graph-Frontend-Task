@@ -23,39 +23,10 @@ export interface FlightItem {
   class: "economy" | "business" | "first";
 }
 
-const sampleFlights: FlightItem[] = [
-  {
-    logoSrc: "logo/Lufthansa.png",
-    logoStyle: { height: "51px", margin: "22px 12px" },
-    src: {
-      country: "Algeria",
-      iso3: "DZA",
-      time: "2021-05-28T09:35:11.523Z",
-      airline: "Kempegowda International",
-    },
-    dst: {
-      country: "United States of America",
-      iso3: "USA",
-      time: "2021-05-28T11:22:27.523Z",
-      airline: "Indira Gandhi International",
-    },
-    boarding: "17017",
-    transfer: false,
-    gates: 5,
-    seat: "20A",
-    price: "3000",
-    class: "economy",
-  },
-];
-
 const FlightListPage: React.FC = () => {
   const navigate = useNavigate();
 
   const [flights, setFlights] = useState<any[]>([]);
-
-  useEffect(() => {
-    getFlightList();
-  }, [navigate]);
 
   const getFlightList = async () => {
     try {
@@ -67,8 +38,13 @@ const FlightListPage: React.FC = () => {
       navigate("/login");
     }
   };
+
+  useEffect(() => {
+    getFlightList();
+  }, [navigate]);
+
   return (
-    <div className=" space-y-4">
+    <div className=" space-y-6">
       {flights.map((f, i) => {
         const dep = new Date(f.src.time);
         const arr = new Date(f.dst.time);
