@@ -5,12 +5,17 @@ export default {
     extend: {
       keyframes: {
         dash: {
-          "0%": { backgroundPosition: "0 0" },
-          "100%": { backgroundPosition: "12px 0" },
+          "100%": { backgroundPosition: "0 0" },
+          "0%": { backgroundPosition: "12px 0" },
         },
       },
       animation: {
-        dash: "dash 1.5s linear infinite",
+        dash: "dash 0.5s linear infinite",
+      },
+      colors: {
+        brand: {
+          900: "#3f3f3f",
+        },
       },
     },
   },

@@ -32,20 +32,20 @@ const FlightSummary: React.FC<FlightSummaryProps> = ({
           )}
 
           <div className="flex-1 text-center">
-            <span className="text-red-800 font-bold text-sm block mb-1">
+            <span className="text-brand-900 font-bold text-xl block mb-1">
               From
             </span>
-            <h2 className="text-5xl font-extrabold text-gray-800 tracking-tighter">
+            <h2 className="text-5xl font-bold text-gray-800 tracking-tighter">
               {departure.iso3}
             </h2>
-            <p className="text-gray-500 text-sm mt-2 leading-tight">
+            <p className="text-gray-500 text-xl mt-2 leading-tight ">
               {departure.airline}
             </p>
           </div>
 
           <div className="flex-[0.5] flex flex-col items-center justify-center px-4">
             <div className="relative w-full flex items-center justify-center mb-6">
-              <div className="absolute w-full h-0.5 bg-[radial-gradient(circle,_#d1d5db_1px,_transparent_1.5px)] [background-size:12px_2px] animate-dash"></div>
+              <div className="absolute w-full h-0.5 bg-[radial-gradient(circle,_#d1d5db_4px,_transparent_1.5px)] [background-size:12px_2px] animate-dash"></div>
               <div className="relative bg-white px-2">
                 <img
                   src="/images/airplane.png"
@@ -54,21 +54,19 @@ const FlightSummary: React.FC<FlightSummaryProps> = ({
               </div>
             </div>
 
-            <div className="bg-gray-200 px-6 py-0 rounded-lg">
-              <span className="text-2xl font-black text-gray-800">
-                ${price}
-              </span>
+            <div className="w-full bg-gray-200 px-6 py-0 rounded-lg">
+              <span className="text-3xl font-bold text-gray-800">${price}</span>
             </div>
           </div>
 
           <div className="flex-1 text-center">
-            <span className="text-red-800 font-bold text-sm block mb-1">
+            <span className="text-brand-900 font-bold text-xl block mb-1">
               To
             </span>
-            <h2 className="text-5xl font-extrabold text-gray-800 tracking-tighter">
+            <h2 className="text-5xl font-bold text-gray-800 tracking-tighter">
               {arrival.iso3}
             </h2>
-            <p className="text-gray-500 text-sm mt-2 leading-tight">
+            <p className="text-gray-500 text-xl mt-2 leading-tight">
               {arrival.airline}
             </p>
           </div>

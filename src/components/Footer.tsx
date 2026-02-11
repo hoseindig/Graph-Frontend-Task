@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Footer: React.FC = () => {
   return (
@@ -18,19 +19,9 @@ const Footer: React.FC = () => {
             <h4 className="text-white font-semibold mb-4">Quick Links</h4>
             <ul className="space-y-2 text-sm">
               <li>
-                <a href="#" className="hover:text-white transition">
+                <Link to="/about" className="hover:text-white transition">
                   About Us
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:text-white transition">
-                  Contact
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:text-white transition">
-                  Support
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
@@ -38,8 +29,10 @@ const Footer: React.FC = () => {
           {/* Contact Info */}
           <div>
             <h4 className="text-white font-semibold mb-4">Contact</h4>
-            <p className="text-sm">Email: support@flighthub.com</p>
-            <p className="text-sm">Phone: 1-800-FLIGHTS</p>
+            <p className="text-sm">
+              Email: hossein.sheykhi.developer@gmail.com
+            </p>
+            <p className="text-sm">Phone: 0912-5771225</p>
           </div>
         </div>
 
