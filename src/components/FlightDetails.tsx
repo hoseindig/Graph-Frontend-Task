@@ -1,13 +1,5 @@
 import React from "react";
-
-interface FlightDetailsProps {
-  flightTimeRange?: string;
-  duration?: string;
-  boarding?: string;
-  transfer?: boolean;
-  gates?: number;
-  seat?: string;
-}
+import type { FlightDetailsProps } from "../types";
 
 const FlightDetails: React.FC<FlightDetailsProps> = ({
   flightTimeRange,

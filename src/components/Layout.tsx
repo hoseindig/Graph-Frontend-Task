@@ -3,10 +3,7 @@ import Header from "./Header";
 import Footer from "./Footer";
 import { UserProvider } from "../context/UserContext";
 import { FlightsProvider } from "../context/FlightsContext";
-
-interface LayoutProps {
-  children: React.ReactNode;
-}
+import type { LayoutProps } from "../types";
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
   return (

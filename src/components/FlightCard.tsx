@@ -3,33 +3,7 @@ import { motion } from "framer-motion";
 import FlightDetails from "./FlightDetails";
 import FlightSummary from "./FlightSummary";
 import FlightFront from "./FlightFront";
-
-interface FlightCardProps {
-  transfer: boolean;
-  boarding: string;
-  gates: number;
-  seat: string;
-  airline: string;
-  airlineLogo?: string;
-  departure: {
-    city: string;
-    time: string;
-    date: string;
-    iso3: string;
-    airline: string;
-  };
-  arrival: {
-    city: string;
-    time: string;
-    date: string;
-    iso3: string;
-    airline: string;
-  };
-  price: number;
-  class?: "economy" | "business" | "first";
-  duration?: string;
-  flightTimeRange?: string;
-}
+import type { FlightCardProps } from "../types";
 
 // format various time string inputs to 24-hour `HH:mm`
 function formatTo24(timeStr: string) {

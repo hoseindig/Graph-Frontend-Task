@@ -1,20 +1,5 @@
 import React, { useState } from "react";
-
-interface CustomModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-  title: string;
-  children: React.ReactNode;
-  onConfirm?: () => void;
-  confirmText?: string;
-  cancelText?: string;
-  size?: "sm" | "md" | "lg" | "xl";
-  animationDuration?: number;
-  animateBackdrop?: boolean;
-  animateModal?: boolean;
-  showBackdrop?: boolean;
-  closeOnBackdropClick?: boolean;
-}
+import type { CustomModalProps } from "../types";
 
 const CustomModal: React.FC<CustomModalProps> = ({
   isOpen,

@@ -1,17 +1,5 @@
 import React from "react";
-
-interface AirportBrief {
-  iso3: string;
-  airline?: string;
-  city?: string;
-}
-
-interface FlightSummaryProps {
-  flightClass?: string;
-  departure: AirportBrief;
-  arrival: AirportBrief;
-  price: number;
-}
+import type { FlightSummaryProps } from "../types";
 
 const FlightSummary: React.FC<FlightSummaryProps> = ({
   flightClass,
