@@ -6,24 +6,15 @@ import React, {
   useState,
 } from "react";
 import { get } from "../api";
-import type { FlightItem } from "../types/flight";
-
-interface FlightsContextType {
-  flights: FlightItem[];
-  isLoading: boolean;
-  page: number;
-  pageNum: number;
-  totalPages: number;
-  pageSize: number;
-  loadFlights: (page?: number) => Promise<void>;
-  loadMore: () => Promise<void>;
-}
+import type {
+  FlightItem,
+  FlightsContextType,
+  ProviderProps,
+} from "../types";
 
 const FlightsContext = createContext<FlightsContextType | undefined>(undefined);
 
-export const FlightsProvider: React.FC<{ children: React.ReactNode }> = ({
-  children,
-}) => {
+export const FlightsProvider: React.FC<ProviderProps> = ({ children }) => {
   const [flights, setFlights] = useState<FlightItem[]>([]);
   const [page, setPage] = useState(1);
   const [pageNum, setPageNum] = useState(1);

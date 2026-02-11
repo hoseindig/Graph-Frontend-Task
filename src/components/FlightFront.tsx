@@ -1,21 +1,5 @@
 import React from "react";
-
-interface FrontAirport {
-  city?: string;
-  time?: string; // already formatted HH:mm
-  date?: string;
-  iso3?: string;
-  airline?: string;
-}
-
-interface FlightFrontProps {
-  flightClass?: string;
-  airline?: string;
-  airlineLogo?: string;
-  departure: FrontAirport;
-  arrival: FrontAirport;
-  price: number;
-}
+import type { FlightFrontProps } from "../types";
 
 const FlightFront: React.FC<FlightFrontProps> = ({
   flightClass,

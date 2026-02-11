@@ -7,22 +7,11 @@ import React, {
 } from "react";
 import { useNavigate } from "react-router-dom";
 import { get } from "../api";
-
-interface User {
-  username: string;
-}
-
-interface UserContextType {
-  user: User | null;
-  isLoading: boolean;
-  error: string | null;
-}
+import type { ProviderProps, User, UserContextType } from "../types";
 
 const UserContext = createContext<UserContextType | undefined>(undefined);
 
-export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
-  children,
-}) => {
+export const UserProvider: React.FC<ProviderProps> = ({ children }) => {
   const navigate = useNavigate();
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);

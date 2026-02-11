@@ -1,7 +1,6 @@
 import api, { normalizeError, setAuthToken, clearAuthToken } from "./client";
 import type { AxiosRequestConfig } from "axios";
-
-export type HTTPResult<T> = { ok: true; data: T } | { ok: false; error: { status?: number; message: string; data?: any } };
+import type { HTTPResult } from "../types";
 
 async function handle<T>(promise: Promise<unknown>): Promise<HTTPResult<T>> {
     try {
