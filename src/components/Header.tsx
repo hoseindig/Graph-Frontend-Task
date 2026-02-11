@@ -82,12 +82,17 @@ const Header: React.FC = () => {
                         {user?.username}
                       </p>
                       <p className="text-xs text-gray-500">User Account</p>
-                      <button
-                        onClick={handleLoadFlights}
-                        className="w-full text-center px-4 py-2 text-blue-600 hover:bg-gray-50 transition flex items-center space-x-2"
-                      >
-                        Load Flights
-                      </button>
+                      <div className="px-2 py-1">
+                        <button
+                          onClick={() => {
+                            const evt = new CustomEvent("loadFlights");
+                            window.dispatchEvent(evt);
+                          }}
+                          className="w-full text-left px-4 py-2 text-blue-600 hover:bg-blue-50 transition mb-2 rounded"
+                        >
+                          Load Flights
+                        </button>
+                      </div>
                     </div>
 
                     <button

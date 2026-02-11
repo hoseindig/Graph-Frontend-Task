@@ -1,68 +1,15 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import FlightCard from "../components/FlightCard";
-import { useNavigate } from "react-router";
-import { get } from "../api";
+import { useFlights } from "../context/FlightsContext";
 import {
   calculateFlightDuration,
   formatFlightTimeRange,
 } from "../utils/flightUtils";
 
-import type { FlightItem } from "../types/flight";
-
 const FlightListPage: React.FC = () => {
-  const navigate = useNavigate();
-
-  const [flights, setFlights] = useState<FlightItem[]>([]);
-  const [page, setPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
-  const [pageSize] = useState(3);
-  const [pageNum, setPageNum] = useState(1);
-  const [isLoading, setIsLoading] = useState(false);
+  const { flights, isLoading, totalPages, pageNum, loadMore } = useFlights();
   const bottomRef = useRef<HTMLDivElement>(null);
   const isInitialLoad = useRef(true);
-
-  const getFlightList = React.useCallback(
-    async (pageNumber: number = 1) => {
-      setPageNum(pageNumber);
-      setIsLoading(true);
-      try {
-        const res = await get(`/list?page=${pageNumber}&size=${pageSize}`);
-
-        if (!res.ok) {
-          console.error("Failed to fetch flights:", res.error);
-          navigate("/login");
-          return;
-        }
-
-        const newFlights = res.data.result;
-        setTotalPages(res.data.total / pageSize);
-
-        if (pageNumber === 1) {
-          setFlights(newFlights);
-        } else {
-          setFlights((prevFlights) => [...prevFlights, ...newFlights]);
-        }
-        setPage(pageNumber);
-      } catch (error) {
-        console.error(error);
-        navigate("/login");
-      } finally {
-        setIsLoading(false);
-      }
-    },
-    [pageSize, navigate],
-  );
-
-  const handleLoadMore = () => {
-    getFlightList(page + 1);
-  };
-
-  // useEffect(() => {
-  //   const initializeFlights = async () => {
-  //     await getFlightList(1);
-  //   };
-  //   initializeFlights();
-  // }, [getFlightList]);
 
   useEffect(() => {
     if (!isInitialLoad.current && !isLoading && pageNum > 1) {
@@ -71,8 +18,12 @@ const FlightListPage: React.FC = () => {
     isInitialLoad.current = false;
   }, [pageNum, isLoading]);
 
+  const handleLoadMore = () => {
+    loadMore();
+  };
+
   return (
-    <div className=" space-y-10">
+    <div className="space-y-10">
       {flights.map((f, i) => {
         const dep = new Date(f.src.time);
         const arr = new Date(f.dst.time);
@@ -98,7 +49,7 @@ const FlightListPage: React.FC = () => {
               }),
             }}
             arrival={{
-              airline: f.src.airline,
+              airline: f.dst.airline,
               city: f.dst.country,
               iso3: f.dst.iso3,
               time: arr.toLocaleTimeString([], {
@@ -121,11 +72,12 @@ const FlightListPage: React.FC = () => {
           />
         );
       })}
+
       <div className="flex items-center justify-center pt-10" ref={bottomRef}>
         {flights.length === 0 ? (
           <p>No flights available</p>
         ) : totalPages === pageNum ? (
-          <p>All Data was laoded</p>
+          <p>All Data was loaded</p>
         ) : (
           <button
             onClick={handleLoadMore}
