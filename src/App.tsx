@@ -6,6 +6,8 @@ import {
 } from "react-router-dom";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
+import FlightListPage from "./pages/FlightListPage";
+import Layout from "./components/Layout";
 import "./App.css";
 
 function App() {
@@ -13,7 +15,22 @@ function App() {
     <Router>
       <Routes>
         <Route path="/login" element={<Login />} />
-        <Route path="/dashboard" element={<Dashboard />} />
+        <Route
+          path="/dashboard"
+          element={
+            <Layout>
+              <Dashboard />
+            </Layout>
+          }
+        />
+        <Route
+          path="/flights"
+          element={
+            <Layout>
+              <FlightListPage />
+            </Layout>
+          }
+        />
         <Route path="/" element={<Navigate to="/login" replace />} />
       </Routes>
     </Router>
