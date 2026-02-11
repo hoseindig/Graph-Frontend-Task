@@ -2,11 +2,13 @@ import React, { useEffect, useRef, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { post } from "../api";
 import { useUser } from "../context/UserContext";
+import { useFlights } from "../context/FlightsContext";
 
 const Header: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const userContext = useUser();
+  const { loadFlights } = useFlights();
   const [isPopoverOpen, setIsPopoverOpen] = useState(false);
   const popoverRef = useRef<HTMLDivElement>(null);
 
@@ -81,10 +83,7 @@ const Header: React.FC = () => {
                       <p className="text-xs text-gray-500">User Account</p>
                       <div className="px-2 py-1">
                         <button
-                          onClick={() => {
-                            const evt = new CustomEvent("loadFlights");
-                            window.dispatchEvent(evt);
-                          }}
+                          onClick={() => loadFlights(1)}
                           className="w-full text-left px-4 py-2 text-blue-600 hover:bg-blue-50 transition mb-2 rounded"
                         >
                           Load Flights
