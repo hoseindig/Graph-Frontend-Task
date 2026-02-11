@@ -51,9 +51,9 @@ const FlightFront: React.FC<FlightFrontProps> = ({
 
         <div className="flex items-center gap-8">
           <div className="text-center">
-            <p className="text-gray-500 text-lg mb-1">{departure.city}</p>
+            <p className="text-gray-500 text-2xl mb-1">{departure.city}</p>
             <p className="text-5xl font-bold text-gray-900">{departure.time}</p>
-            <p className="text-gray-400 text-lg mt-1">{departure.date}</p>
+            <p className="text-gray-400 text-2xl mt-1">{departure.date}</p>
           </div>
 
           <div className="text-gray-400">
@@ -61,9 +61,9 @@ const FlightFront: React.FC<FlightFrontProps> = ({
           </div>
 
           <div className="text-center">
-            <p className="text-gray-500 text-lg mb-1">{arrival.city}</p>
+            <p className="text-gray-500 text-2xl mb-1">{arrival.city}</p>
             <p className="text-5xl font-bold text-gray-900">{arrival.time}</p>
-            <p className="text-gray-400 text-lg mt-1">{arrival.date}</p>
+            <p className="text-gray-400 text-2xl mt-1">{arrival.date}</p>
           </div>
         </div>
       </div>
@@ -78,4 +78,3 @@ const FlightFront: React.FC<FlightFrontProps> = ({
 };
 
 export default FlightFront;
-
