@@ -2,52 +2,11 @@ import React, { useEffect, useState, useRef } from "react";
 import FlightCard from "../components/FlightCard";
 import { useNavigate } from "react-router";
 import { get } from "../api";
-
-// Helper function to calculate flight duration
-function calculateFlightDuration(
-  departureTime: Date,
-  arrivalTime: Date,
-): string {
-  const durationMs = arrivalTime.getTime() - departureTime.getTime();
-  const totalMinutes = Math.floor(durationMs / 1000 / 60);
-  const hours = Math.floor(totalMinutes / 60);
-  const minutes = totalMinutes % 60;
-
-  if (hours > 0) {
-    return `${hours}h ${minutes}min`;
-  }
-  return `${minutes}min`;
-}
-
-// Helper function to format flight time range (e.g., "14:20 - 16:45")
-function formatFlightTimeRange(departureTime: Date, arrivalTime: Date): string {
-  const depHours = String(departureTime.getHours()).padStart(2, "0");
-  const depMinutes = String(departureTime.getMinutes()).padStart(2, "0");
-  const arrHours = String(arrivalTime.getHours()).padStart(2, "0");
-  const arrMinutes = String(arrivalTime.getMinutes()).padStart(2, "0");
-  return `${depHours}:${depMinutes} - ${arrHours}:${arrMinutes}`;
-}
-
-type AirportInfo = {
-  country: string;
-  iso3: string;
-  time: string; // ISO string
-  airline: string;
-};
-
-export interface FlightItem {
-  logoSrc: string;
-  logoStyle?: React.CSSProperties;
-  src: AirportInfo;
-  dst: AirportInfo;
-  boarding: string;
-  transfer: boolean;
-  gates: number;
-  seat: string;
-  airline: string;
-  price: string | number;
-  class: "economy" | "business" | "first";
-}
+import {
+  calculateFlightDuration,
+  formatFlightTimeRange,
+} from "../utils/flightUtils";
+import type { FlightItem } from "../types/flight";
 
 const FlightListPage: React.FC = () => {
   const navigate = useNavigate();
@@ -61,36 +20,48 @@ const FlightListPage: React.FC = () => {
   const bottomRef = useRef<HTMLDivElement>(null);
   const isInitialLoad = useRef(true);
 
-  const getFlightList = async (pageNumber: number = 1) => {
-    setPageNum(pageNumber);
-    try {
+  const getFlightList = React.useCallback(
+    async (pageNumber: number = 1) => {
+      setPageNum(pageNumber);
       setIsLoading(true);
-      const res = await get(`/list?page=${pageNumber}&size=${pageSize}`);
+      try {
+        const res = await get(`/list?page=${pageNumber}&size=${pageSize}`);
 
-      const newFlights = res.data.result;
-      setTotalPages(res.data.total / pageSize);
+        if (!res.ok) {
+          console.error("Failed to fetch flights:", res.error);
+          navigate("/login");
+          return;
+        }
 
-      if (pageNumber === 1) {
-        setFlights(newFlights);
-      } else {
-        setFlights((prevFlights) => [...prevFlights, ...newFlights]);
+        const newFlights = res.data.result;
+        setTotalPages(res.data.total / pageSize);
+
+        if (pageNumber === 1) {
+          setFlights(newFlights);
+        } else {
+          setFlights((prevFlights) => [...prevFlights, ...newFlights]);
+        }
+        setPage(pageNumber);
+      } catch (error) {
+        console.error(error);
+        navigate("/login");
+      } finally {
+        setIsLoading(false);
       }
-      setPage(pageNumber);
-      setIsLoading(false);
-    } catch (error) {
-      console.error(error);
-      navigate("/login");
-      setIsLoading(false);
-    }
-  };
+    },
+    [pageSize, navigate],
+  );
 
   const handleLoadMore = () => {
     getFlightList(page + 1);
   };
 
   useEffect(() => {
-    getFlightList(1);
-  }, [navigate]);
+    const initializeFlights = async () => {
+      await getFlightList(1);
+    };
+    initializeFlights();
+  }, [getFlightList]);
 
   useEffect(() => {
     if (!isInitialLoad.current && !isLoading && pageNum > 1) {

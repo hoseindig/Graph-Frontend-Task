@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate, useLocation } from "react-router-dom";
+import { post } from "../api";
 
 const Header: React.FC = () => {
   const navigate = useNavigate();
@@ -7,8 +8,11 @@ const Header: React.FC = () => {
 
   const isLoggedIn = location.pathname !== "/login";
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
     localStorage.removeItem("token");
+
+    await post("/logout");
+
     navigate("/login");
   };
 

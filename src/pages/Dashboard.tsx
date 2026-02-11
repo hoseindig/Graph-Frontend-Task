@@ -15,7 +15,7 @@ const Dashboard: React.FC = () => {
   const getuserdata = async () => {
     try {
       const res = await get("/username");
-      console.log(res);
+
       setUser({ username: res.data.username });
     } catch (error) {
       navigate("/login");
@@ -51,7 +51,7 @@ const Dashboard: React.FC = () => {
             <span className="font-semibold text-blue-600">{user.username}</span>
           </p>
         </div>
-        {/* <Notebook /> */}
+
         <FlightListPage />
       </div>
 
