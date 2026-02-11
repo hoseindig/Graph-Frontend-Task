@@ -9,6 +9,7 @@ import Dashboard from "./pages/Dashboard";
 import FlightListPage from "./pages/FlightListPage";
 import About from "./pages/About";
 import Layout from "./components/Layout";
+import ProtectedLayout from "./components/ProtectedLayout";
 
 function App() {
   return (
@@ -18,17 +19,17 @@ function App() {
         <Route
           path="/dashboard"
           element={
-            <Layout>
+            <ProtectedLayout>
               <Dashboard />
-            </Layout>
+            </ProtectedLayout>
           }
         />
         <Route
           path="/flights"
           element={
-            <Layout>
+            <ProtectedLayout>
               <FlightListPage />
-            </Layout>
+            </ProtectedLayout>
           }
         />
         <Route

@@ -52,10 +52,4 @@ export const UserProvider: React.FC<ProviderProps> = ({ children }) => {
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
 };
 
-export const useUser = () => {
-  const context = useContext(UserContext);
-  if (context === undefined) {
-    throw new Error("useUser must be used within a UserProvider");
-  }
-  return context;
-};
+export const useUser = () => useContext(UserContext);
