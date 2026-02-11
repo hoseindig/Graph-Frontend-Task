@@ -12,6 +12,11 @@ export default {
       animation: {
         dash: "dash 0.5s linear infinite",
       },
+      colors: {
+        brand: {
+          900: "#3f3f3f",
+        },
+      },
     },
   },
   plugins: [],
