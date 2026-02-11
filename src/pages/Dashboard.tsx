@@ -3,8 +3,6 @@ import { useNavigate } from "react-router-dom";
 import CustomModal from "../components/CustomModal";
 import { get } from "../api";
 import FlightListPage from "./FlightListPage";
-import Notebook from "../components/Notebook";
-
 interface User {
   username: string;
 }

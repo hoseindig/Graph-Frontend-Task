@@ -45,15 +45,12 @@ const FlightSummary: React.FC<FlightSummaryProps> = ({
 
           <div className="flex-[0.5] flex flex-col items-center justify-center px-4">
             <div className="relative w-full flex items-center justify-center mb-6">
-              <div className="absolute w-full border-t-2 border-dotted border-gray-300"></div>
+              <div className="absolute w-full h-0.5 bg-[radial-gradient(circle,_#d1d5db_1px,_transparent_1.5px)] [background-size:12px_2px] animate-dash"></div>
               <div className="relative bg-white px-2">
-                <svg
-                  className="w-10 h-10 text-gray-400 transform rotate-90"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-4.5l8 2.5z" />
-                </svg>
+                <img
+                  src="/images/airplane.png"
+                  className="w-16 object-contain"
+                />
               </div>
             </div>
 

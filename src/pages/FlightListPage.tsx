@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import FlightCard from "../components/FlightCard";
 import { useNavigate } from "react-router";
 import { get } from "../api";
@@ -53,21 +53,51 @@ const FlightListPage: React.FC = () => {
   const navigate = useNavigate();
 
   const [flights, setFlights] = useState<any[]>([]);
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const [pageSize] = useState(3);
+  const [pageNum, setPageNum] = useState(1);
+  const [isLoading, setIsLoading] = useState(false);
+  const bottomRef = useRef<HTMLDivElement>(null);
+  const isInitialLoad = useRef(true);
 
-  const getFlightList = async () => {
+  const getFlightList = async (pageNumber: number = 1) => {
+    setPageNum(pageNumber);
     try {
-      const res = await get("/list?page=1&size=3");
-      console.log(res);
-      const flights = res.data.result;
-      setFlights(flights);
+      setIsLoading(true);
+      const res = await get(`/list?page=${pageNumber}&size=${pageSize}`);
+
+      const newFlights = res.data.result;
+      setTotalPages(res.data.total / pageSize);
+
+      if (pageNumber === 1) {
+        setFlights(newFlights);
+      } else {
+        setFlights((prevFlights) => [...prevFlights, ...newFlights]);
+      }
+      setPage(pageNumber);
+      setIsLoading(false);
     } catch (error) {
+      console.error(error);
       navigate("/login");
+      setIsLoading(false);
     }
   };
 
+  const handleLoadMore = () => {
+    getFlightList(page + 1);
+  };
+
   useEffect(() => {
-    getFlightList();
+    getFlightList(1);
   }, [navigate]);
+
+  useEffect(() => {
+    if (!isInitialLoad.current && !isLoading && pageNum > 1) {
+      bottomRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
+    }
+    isInitialLoad.current = false;
+  }, [pageNum, isLoading]);
 
   return (
     <div className=" space-y-10">
@@ -119,6 +149,19 @@ const FlightListPage: React.FC = () => {
           />
         );
       })}
+      <div className="flex items-center justify-center pt-10" ref={bottomRef}>
+        {totalPages === pageNum ? (
+          <p>All Data was laoded</p>
+        ) : (
+          <button
+            onClick={handleLoadMore}
+            disabled={isLoading || totalPages === pageNum}
+            className="px-8 py-3 bg-red-600 text-white font-semibold rounded-lg hover:bg-red-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+          >
+            {isLoading ? "Loading..." : "Load More"}
+          </button>
+        )}
+      </div>
     </div>
   );
 };

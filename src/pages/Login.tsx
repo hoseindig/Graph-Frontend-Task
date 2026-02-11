@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { post, get, setAuthToken } from "../api";
+import CustomModal from "../components/CustomModal";
 
 const Login: React.FC = () => {
   const navigate = useNavigate();
@@ -69,7 +70,7 @@ const Login: React.FC = () => {
               type="text"
               value={username}
               onChange={(e) => setUername(e.target.value)}
-              placeholder="you@example.com"
+              placeholder="Enter your Username"
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
               required
             />
@@ -103,14 +104,23 @@ const Login: React.FC = () => {
             {loading ? "Logging in..." : "Login"}
           </button>
         </form>
-
-        {/* Demo Credentials */}
-        <div className="mt-6 p-4 bg-gray-100 rounded-lg text-sm text-gray-600">
-          <p className="font-semibold mb-2">Demo Credentials:</p>
-          <p>Email: test@example.com</p>
-          <p>Password: any password</p>
-        </div>
       </div>
+
+      {/* Error Modal */}
+      <CustomModal
+        isOpen={!!error}
+        onClose={() => setError(null)}
+        title="Login Failed"
+        cancelText="Close"
+        size="sm"
+      >
+        <div className="text-center">
+          <p className="text-gray-700 mb-4">{error}</p>
+          <p className="text-sm text-gray-500">
+            Please check your username and password and try again.
+          </p>
+        </div>
+      </CustomModal>
     </div>
   );
 };
