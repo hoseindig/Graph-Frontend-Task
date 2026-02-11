@@ -7,6 +7,7 @@ import {
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import FlightListPage from "./pages/FlightListPage";
+import About from "./pages/About";
 import Layout from "./components/Layout";
 import "./App.css";
 
@@ -28,6 +29,14 @@ function App() {
           element={
             <Layout>
               <FlightListPage />
+            </Layout>
+          }
+        />
+        <Route
+          path="/about"
+          element={
+            <Layout>
+              <About />
             </Layout>
           }
         />

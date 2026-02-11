@@ -20,15 +20,6 @@ const Dashboard: React.FC = () => {
     <div className="bg-gradient-to-br from-gray-50 to-gray-100 py-8">
       {/* Main Content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Welcome Card */}
-        {/* <div className="bg-white rounded-lg shadow-md p-8 mb-8">
-          <h2 className="text-3xl font-bold text-gray-800 mb-2">Welcome! 👋</h2>
-          <p className="text-gray-600 text-lg">
-            You are logged in as:{" "}
-            <span className="font-semibold text-blue-600">{user.username}</span>
-          </p>
-        </div> */}
-
         <FlightListPage />
       </div>
 
