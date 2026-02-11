@@ -35,6 +35,7 @@ const FlightListPage: React.FC = () => {
             key={i}
             airline={`${f.src.airline} → ${f.dst.airline}`}
             airlineLogo={f.logoSrc}
+            logoStyle={f.logoStyle}
             departure={{
               airline: f.src.airline,
               city: f.src.country,

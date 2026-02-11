@@ -5,6 +5,7 @@ const FlightFront: React.FC<FlightFrontProps> = ({
   flightClass,
   airline,
   airlineLogo,
+  logoStyle,
   departure,
   arrival,
   price,
@@ -30,6 +31,7 @@ const FlightFront: React.FC<FlightFrontProps> = ({
               alt={airline}
               width={200}
               className="w-56 object-contain"
+              style={logoStyle}
             />
           ) : (
             <div className="w-12 h-12 rounded-full border-2 border-gray-800 flex items-center justify-center">

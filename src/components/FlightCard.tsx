@@ -46,6 +46,7 @@ function formatTo24(timeStr: string) {
 const FlightCard: React.FC<FlightCardProps> = ({
   airline,
   airlineLogo,
+  logoStyle,
   departure,
   arrival,
   price,
@@ -97,6 +98,7 @@ const FlightCard: React.FC<FlightCardProps> = ({
             flightClass={flightClass}
             airline={airline}
             airlineLogo={airlineLogo}
+            logoStyle={logoStyle}
             departure={{
               city: departure.city,
               time: formatTo24(departure.time),

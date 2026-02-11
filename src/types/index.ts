@@ -76,6 +76,7 @@ export interface FlightCardProps {
   seat: string;
   airline: string;
   airlineLogo?: string;
+  logoStyle?: CSSProperties;
   departure: FlightCardAirport;
   arrival: FlightCardAirport;
   price: number;
@@ -122,6 +123,7 @@ export interface FlightFrontProps {
   flightClass?: string;
   airline?: string;
   airlineLogo?: string;
+  logoStyle?: CSSProperties;
   departure: FrontAirport;
   arrival: FrontAirport;
   price: number;
