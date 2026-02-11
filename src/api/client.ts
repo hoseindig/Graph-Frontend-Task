@@ -1,4 +1,4 @@
-import axios, { type AxiosError, type AxiosInstance, type AxiosRequestConfig } from "axios";
+import axios, { type AxiosError, type AxiosInstance } from "axios";
 
 const _meta = import.meta as unknown as { env?: Record<string, unknown> };
 const API_BASE = (typeof _meta.env?.VITE_API_BASE_URL === "string"

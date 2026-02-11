@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { post, get, setAuthToken } from "../api";
+import { post, setAuthToken } from "../api";
 import CustomModal from "../components/CustomModal";
 
 const Login: React.FC = () => {
@@ -33,10 +33,7 @@ const Login: React.FC = () => {
 
       const data = res.data ?? {};
       const token = data.token;
-      const userObj = data.user ?? { email: username };
-      if (token) {
-        setAuthToken(token);
-      }
+      if (token) setAuthToken(token);
 
       navigate("/dashboard");
     } catch (err: any) {
