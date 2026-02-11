@@ -6,12 +6,13 @@ import {
   calculateFlightDuration,
   formatFlightTimeRange,
 } from "../utils/flightUtils";
+
 import type { FlightItem } from "../types/flight";
 
 const FlightListPage: React.FC = () => {
   const navigate = useNavigate();
 
-  const [flights, setFlights] = useState<any[]>([]);
+  const [flights, setFlights] = useState<FlightItem[]>([]);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [pageSize] = useState(3);
@@ -56,12 +57,12 @@ const FlightListPage: React.FC = () => {
     getFlightList(page + 1);
   };
 
-  useEffect(() => {
-    const initializeFlights = async () => {
-      await getFlightList(1);
-    };
-    initializeFlights();
-  }, [getFlightList]);
+  // useEffect(() => {
+  //   const initializeFlights = async () => {
+  //     await getFlightList(1);
+  //   };
+  //   initializeFlights();
+  // }, [getFlightList]);
 
   useEffect(() => {
     if (!isInitialLoad.current && !isLoading && pageNum > 1) {
@@ -121,7 +122,9 @@ const FlightListPage: React.FC = () => {
         );
       })}
       <div className="flex items-center justify-center pt-10" ref={bottomRef}>
-        {totalPages === pageNum ? (
+        {flights.length === 0 ? (
+          <p>No flights available</p>
+        ) : totalPages === pageNum ? (
           <p>All Data was laoded</p>
         ) : (
           <button
