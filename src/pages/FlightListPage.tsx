@@ -43,10 +43,12 @@ const FlightListPage: React.FC = () => {
         const arr = new Date(f.dst.time);
         const duration = calculateFlightDuration(dep, arr);
         const flightTimeRange = formatFlightTimeRange(dep, arr);
+        // Generate stable key from flight data
+        const flightKey = `${f.src.iso3}-${f.dst.iso3}-${f.src.time}-${i}`;
 
         return (
           <FlightCard
-            key={i}
+            key={flightKey}
             airline={`${f.src.airline} → ${f.dst.airline}`}
             airlineLogo={f.logoSrc}
             logoStyle={f.logoStyle}
@@ -110,13 +112,15 @@ const FlightListPage: React.FC = () => {
           <button
             onClick={scrollToTop}
             className="bg-red-600 hover:bg-red-700 text-white rounded-full p-3 shadow-lg transition-all duration-200 hover:scale-110"
-            title="Scroll to top"
+            title="Scroll to top of page"
+            aria-label="Scroll to top"
           >
             <svg
               className="w-6 h-6"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
+              aria-hidden="true"
             >
               <path
                 strokeLinecap="round"

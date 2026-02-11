@@ -70,6 +70,8 @@ const Login: React.FC = () => {
               placeholder="Enter your Username"
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
               required
+              aria-label="Username input"
+              autoComplete="username"
             />
           </div>
 
@@ -89,6 +91,8 @@ const Login: React.FC = () => {
               placeholder="••••••••"
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
               required
+              aria-label="Password input"
+              autoComplete="current-password"
             />
           </div>
 

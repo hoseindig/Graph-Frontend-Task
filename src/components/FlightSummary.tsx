@@ -37,7 +37,9 @@ const FlightSummary: React.FC<FlightSummaryProps> = ({
               <div className="relative bg-white px-2">
                 <img
                   src="/images/airplane.png"
+                  alt="Flight path animation"
                   className="w-16 object-contain"
+                  loading="lazy"
                 />
               </div>
             </div>
@@ -58,10 +60,11 @@ const FlightSummary: React.FC<FlightSummaryProps> = ({
               {arrival.airline}
             </p>
           </div>
-        </div>`n      </div>
+        </div>
+        `n{" "}
+      </div>
     </div>
   );
 };
 
 export default FlightSummary;
-

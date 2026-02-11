@@ -28,10 +28,11 @@ const FlightFront: React.FC<FlightFrontProps> = ({
           {airlineLogo ? (
             <img
               src={airlineLogo}
-              alt={airline}
+              alt={`${airline} logo`}
               width={200}
               className="w-56 object-contain"
               style={logoStyle}
+              loading="lazy"
             />
           ) : (
             <div className="w-12 h-12 rounded-full border-2 border-gray-800 flex items-center justify-center">
@@ -57,7 +58,12 @@ const FlightFront: React.FC<FlightFrontProps> = ({
           </div>
 
           <div className="text-gray-400">
-            <img src="/images/airplane.png" className="w-16 object-contain" />
+            <img
+              src="/images/airplane.png"
+              alt="Flight route animation"
+              className="w-16 object-contain"
+              loading="lazy"
+            />
           </div>
 
           <div className="text-center">

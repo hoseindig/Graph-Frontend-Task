@@ -1,10 +1,4 @@
-import React, {
-  createContext,
-  useCallback,
-  useContext,
-  useEffect,
-  useState,
-} from "react";
+import React, { createContext, useCallback, useContext, useState } from "react";
 import { get } from "../api";
 import type { FlightItem, FlightsContextType, ProviderProps } from "../types";
 

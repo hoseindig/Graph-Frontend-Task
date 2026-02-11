@@ -86,12 +86,15 @@ const CustomModal: React.FC<CustomModalProps> = ({
           <button
             onClick={handleClose}
             className="text-gray-400 hover:text-gray-600 transition-colors duration-200 focus:outline-none"
+            aria-label="Close modal"
+            title="Close modal"
           >
             <svg
               className="w-6 h-6"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
+              aria-hidden="true"
             >
               <path
                 strokeLinecap="round"
