@@ -9,7 +9,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   return (
     <UserProvider>
       <FlightsProvider>
-        <div className="flex flex-col min-h-screen bg-gray-50">
+        <div className="flex flex-col min-h-screen bg-gray-50  min-w-[900px]">
           <Header />
           <main className="flex-1 w-full">{children}</main>
           <Footer />
