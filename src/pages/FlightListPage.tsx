@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import FlightCard from "../components/FlightCard";
+import LoadingSkeleton from "../components/LoadingSkeleton";
 import { useFlights } from "../context/FlightsContext";
 import {
   calculateFlightDuration,
@@ -38,57 +39,61 @@ const FlightListPage: React.FC = () => {
 
   return (
     <div className="space-y-10">
-      {flights.map((f, i) => {
-        const dep = new Date(f.src.time);
-        const arr = new Date(f.dst.time);
-        const duration = calculateFlightDuration(dep, arr);
-        const flightTimeRange = formatFlightTimeRange(dep, arr);
-        // Generate stable key from flight data
-        const flightKey = `${f.src.iso3}-${f.dst.iso3}-${f.src.time}-${i}`;
+      {isLoading && flights.length === 0 ? (
+        <LoadingSkeleton count={3} />
+      ) : (
+        flights.map((f, i) => {
+          const dep = new Date(f.src.time);
+          const arr = new Date(f.dst.time);
+          const duration = calculateFlightDuration(dep, arr);
+          const flightTimeRange = formatFlightTimeRange(dep, arr);
+          // Generate stable key from flight data
+          const flightKey = `${f.src.iso3}-${f.dst.iso3}-${f.src.time}-${i}`;
 
-        return (
-          <FlightCard
-            key={flightKey}
-            airline={`${f.src.airline} → ${f.dst.airline}`}
-            airlineLogo={f.logoSrc}
-            logoStyle={f.logoStyle}
-            departure={{
-              airline: f.src.airline,
-              city: f.src.country,
-              iso3: f.src.iso3,
-              time: dep.toLocaleTimeString([], {
-                hour: "2-digit",
-                minute: "2-digit",
-              }),
-              date: dep.toLocaleDateString("en-US", {
-                month: "short",
-                day: "numeric",
-              }),
-            }}
-            arrival={{
-              airline: f.dst.airline,
-              city: f.dst.country,
-              iso3: f.dst.iso3,
-              time: arr.toLocaleTimeString([], {
-                hour: "2-digit",
-                minute: "2-digit",
-              }),
-              date: arr.toLocaleDateString("en-US", {
-                month: "short",
-                day: "numeric",
-              }),
-            }}
-            transfer={f.transfer}
-            boarding={f.boarding}
-            gates={f.gates}
-            seat={f.seat}
-            price={Number(f.price)}
-            class={f.class}
-            duration={duration}
-            flightTimeRange={flightTimeRange}
-          />
-        );
-      })}
+          return (
+            <FlightCard
+              key={flightKey}
+              airline={`${f.src.airline} → ${f.dst.airline}`}
+              airlineLogo={f.logoSrc}
+              logoStyle={f.logoStyle}
+              departure={{
+                airline: f.src.airline,
+                city: f.src.country,
+                iso3: f.src.iso3,
+                time: dep.toLocaleTimeString([], {
+                  hour: "2-digit",
+                  minute: "2-digit",
+                }),
+                date: dep.toLocaleDateString("en-US", {
+                  month: "short",
+                  day: "numeric",
+                }),
+              }}
+              arrival={{
+                airline: f.dst.airline,
+                city: f.dst.country,
+                iso3: f.dst.iso3,
+                time: arr.toLocaleTimeString([], {
+                  hour: "2-digit",
+                  minute: "2-digit",
+                }),
+                date: arr.toLocaleDateString("en-US", {
+                  month: "short",
+                  day: "numeric",
+                }),
+              }}
+              transfer={f.transfer}
+              boarding={f.boarding}
+              gates={f.gates}
+              seat={f.seat}
+              price={Number(f.price)}
+              class={f.class}
+              duration={duration}
+              flightTimeRange={flightTimeRange}
+            />
+          );
+        })
+      )}
 
       <div className="flex items-center justify-center pt-10" ref={bottomRef}>
         {flights.length === 0 ? (
