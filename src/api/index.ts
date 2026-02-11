@@ -1,5 +1,5 @@
 import api, { normalizeError, setAuthToken, clearAuthToken } from "./client";
-import type { AxiosRequestConfig } from "axios";
+import type { AxiosRequestConfig, AxiosError } from "axios";
 import type { HTTPResult } from "../types";
 
 async function handle<T>(promise: Promise<unknown>): Promise<HTTPResult<T>> {
@@ -7,7 +7,14 @@ async function handle<T>(promise: Promise<unknown>): Promise<HTTPResult<T>> {
         const res = await promise as { data: T };
         return { ok: true, data: res.data };
     } catch (err: unknown) {
-        return { ok: false, error: (err as any) };
+        // Error from axios interceptor is already normalized, or it could be from another source
+        if (err && typeof err === "object" && "message" in err) {
+            return { ok: false, error: err as { status?: number; message: string; data?: unknown } };
+        }
+        return {
+            ok: false,
+            error: normalizeError(err as AxiosError<unknown>),
+        };
     }
 }
 

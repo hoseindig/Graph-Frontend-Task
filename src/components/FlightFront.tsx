@@ -1,17 +1,18 @@
-import React from "react";
+﻿import React from "react";
 import type { FlightFrontProps } from "../types";
 
 const FlightFront: React.FC<FlightFrontProps> = ({
   flightClass,
   airline,
   airlineLogo,
+  logoStyle,
   departure,
   arrival,
   price,
 }) => {
   return (
     <div
-      className="absolute inset-0 bg-white rounded-lg flex flex-col items-center justify-between text-white shadow-2xl"
+      className="absolute inset-0 bg-white rounded-[22px] flex flex-col items-center justify-between text-white shadow-2xl"
       style={{ backfaceVisibility: "hidden" }}
     >
       {flightClass && (
@@ -27,9 +28,11 @@ const FlightFront: React.FC<FlightFrontProps> = ({
           {airlineLogo ? (
             <img
               src={airlineLogo}
-              alt={airline}
+              alt={`${airline} logo`}
               width={200}
               className="w-56 object-contain"
+              style={logoStyle}
+              loading="lazy"
             />
           ) : (
             <div className="w-12 h-12 rounded-full border-2 border-gray-800 flex items-center justify-center">
@@ -49,19 +52,24 @@ const FlightFront: React.FC<FlightFrontProps> = ({
 
         <div className="flex items-center gap-8">
           <div className="text-center">
-            <p className="text-gray-500 text-lg mb-1">{departure.city}</p>
+            <p className="text-gray-500 text-2xl mb-1">{departure.city}</p>
             <p className="text-5xl font-bold text-gray-900">{departure.time}</p>
-            <p className="text-gray-400 text-lg mt-1">{departure.date}</p>
+            <p className="text-gray-400 text-2xl mt-1">{departure.date}</p>
           </div>
 
           <div className="text-gray-400">
-            <img src="/images/airplane.png" className="w-16 object-contain" />
+            <img
+              src="/images/airplane.png"
+              alt="Flight route animation"
+              className="w-16 object-contain"
+              loading="lazy"
+            />
           </div>
 
           <div className="text-center">
-            <p className="text-gray-500 text-lg mb-1">{arrival.city}</p>
+            <p className="text-gray-500 text-2xl mb-1">{arrival.city}</p>
             <p className="text-5xl font-bold text-gray-900">{arrival.time}</p>
-            <p className="text-gray-400 text-lg mt-1">{arrival.date}</p>
+            <p className="text-gray-400 text-2xl mt-1">{arrival.date}</p>
           </div>
         </div>
       </div>

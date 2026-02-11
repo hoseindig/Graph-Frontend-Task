@@ -1,16 +1,6 @@
-import React, {
-  createContext,
-  useCallback,
-  useContext,
-  useEffect,
-  useState,
-} from "react";
+import React, { createContext, useCallback, useContext, useState } from "react";
 import { get } from "../api";
-import type {
-  FlightItem,
-  FlightsContextType,
-  ProviderProps,
-} from "../types";
+import type { FlightItem, FlightsContextType, ProviderProps } from "../types";
 
 const FlightsContext = createContext<FlightsContextType | undefined>(undefined);
 
@@ -50,19 +40,9 @@ export const FlightsProvider: React.FC<ProviderProps> = ({ children }) => {
     await loadFlights(page + 1);
   }, [loadFlights, page]);
 
-  //   useEffect(() => {
-  //     // initial load
-  //     loadFlights(1);
-  //   }, [loadFlights]);
-
-  useEffect(() => {
-    const handler = () => {
-      loadFlights(1);
-    };
-    window.addEventListener("loadFlights", handler as EventListener);
-    return () =>
-      window.removeEventListener("loadFlights", handler as EventListener);
-  }, [loadFlights]);
+  // useEffect(() => {
+  //   loadFlights(1);
+  // }, [loadFlights]);
 
   const value: FlightsContextType = {
     flights,
