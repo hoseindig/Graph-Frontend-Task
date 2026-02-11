@@ -45,7 +45,7 @@ const FlightSummary: React.FC<FlightSummaryProps> = ({
 
           <div className="flex-[0.5] flex flex-col items-center justify-center px-4">
             <div className="relative w-full flex items-center justify-center mb-6">
-              <div className="absolute w-full border-t-2 border-dotted border-gray-300"></div>
+              <div className="absolute w-full h-0.5 bg-[radial-gradient(circle,_#d1d5db_1px,_transparent_1.5px)] [background-size:12px_2px] animate-dash"></div>
               <div className="relative bg-white px-2">
                 <img
                   src="/images/airplane.png"
