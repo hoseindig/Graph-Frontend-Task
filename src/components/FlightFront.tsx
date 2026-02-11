@@ -1,4 +1,4 @@
-import React from "react";
+﻿import React from "react";
 import type { FlightFrontProps } from "../types";
 
 const FlightFront: React.FC<FlightFrontProps> = ({
@@ -12,7 +12,7 @@ const FlightFront: React.FC<FlightFrontProps> = ({
 }) => {
   return (
     <div
-      className="absolute inset-0 bg-white rounded-lg flex flex-col items-center justify-between text-white shadow-2xl"
+      className="absolute inset-0 bg-white rounded-[22px] flex flex-col items-center justify-between text-white shadow-2xl"
       style={{ backfaceVisibility: "hidden" }}
     >
       {flightClass && (
@@ -78,3 +78,4 @@ const FlightFront: React.FC<FlightFrontProps> = ({
 };
 
 export default FlightFront;
+

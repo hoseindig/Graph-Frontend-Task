@@ -1,4 +1,4 @@
-import { useState } from "react";
+﻿import { useState } from "react";
 import { motion } from "framer-motion";
 import FlightDetails from "./FlightDetails";
 import FlightSummary from "./FlightSummary";
@@ -62,15 +62,15 @@ const FlightCard: React.FC<FlightCardProps> = ({
 
   return (
     <div className="flex items-center justify-center  p-4">
-      {/* Container اصلی - جابه‌جایی عمودی برای مرکز ماندن هنگام باز شدن */}
+      {/* Container Ø§ØµÙ„ÛŒ - Ø¬Ø§Ø¨Ù‡â€ŒØ¬Ø§ÛŒÛŒ Ø¹Ù…ÙˆØ¯ÛŒ Ø¨Ø±Ø§ÛŒ Ù…Ø±Ú©Ø² Ù…Ø§Ù†Ø¯Ù† Ù‡Ù†Ú¯Ø§Ù… Ø¨Ø§Ø² Ø´Ø¯Ù† */}
       <motion.div
         className="relative w-full h-[210px] cursor-pointer"
-        animate={{ marginBottom: isOpen ? 200 : 0 }} // جابه‌جایی به بالا به اندازه نصف ارتفاع
+        animate={{ marginBottom: isOpen ? 200 : 0 }} // Ø¬Ø§Ø¨Ù‡â€ŒØ¬Ø§ÛŒÛŒ Ø¨Ù‡ Ø¨Ø§Ù„Ø§ Ø¨Ù‡ Ø§Ù†Ø¯Ø§Ø²Ù‡ Ù†ØµÙ Ø§Ø±ØªÙØ§Ø¹
         transition={{ duration: 0.5, ease: "easeInOut" }}
         style={{ perspective: "1500px" }}
         onClick={() => setIsOpen(!isOpen)}
       >
-        {/* صفحه ۲ (صفحه ثابت که زیر است - حالا در نیمه بالایی قرار می‌گیرد) */}
+        {/* ØµÙØ­Ù‡ Û² (ØµÙØ­Ù‡ Ø«Ø§Ø¨Øª Ú©Ù‡ Ø²ÛŒØ± Ø§Ø³Øª - Ø­Ø§Ù„Ø§ Ø¯Ø± Ù†ÛŒÙ…Ù‡ Ø¨Ø§Ù„Ø§ÛŒÛŒ Ù‚Ø±Ø§Ø± Ù…ÛŒâ€ŒÚ¯ÛŒØ±Ø¯) */}
         <FlightSummary
           flightClass={flightClass}
           departure={{
@@ -86,14 +86,14 @@ const FlightCard: React.FC<FlightCardProps> = ({
           price={price}
         />
 
-        {/* لایه متحرک: روی جلد و صفحه ۱ */}
+        {/* Ù„Ø§ÛŒÙ‡ Ù…ØªØ­Ø±Ú©: Ø±ÙˆÛŒ Ø¬Ù„Ø¯ Ùˆ ØµÙØ­Ù‡ Û± */}
         <motion.div
-          className="absolute inset-0 z-10 origin-bottom" // چرخش حول لبه پایینی
+          className="absolute inset-0 z-10 origin-bottom" // Ú†Ø±Ø®Ø´ Ø­ÙˆÙ„ Ù„Ø¨Ù‡ Ù¾Ø§ÛŒÛŒÙ†ÛŒ
           style={{ transformStyle: "preserve-3d" }}
-          animate={{ rotateX: isOpen ? -180 : 0 }} // چرخش حول محور X
+          animate={{ rotateX: isOpen ? -180 : 0 }} // Ú†Ø±Ø®Ø´ Ø­ÙˆÙ„ Ù…Ø­ÙˆØ± X
           transition={{ duration: 0.5, ease: "easeInOut" }}
         >
-          {/* روی جلد (Front Cover) */}
+          {/* Ø±ÙˆÛŒ Ø¬Ù„Ø¯ (Front Cover) */}
           <FlightFront
             flightClass={flightClass}
             airline={airline}
@@ -112,12 +112,12 @@ const FlightCard: React.FC<FlightCardProps> = ({
             price={price}
           />
 
-          {/* صفحه ۱ (پشت جلد - وقتی باز می‌شود در پایین قرار می‌گیرد) */}
+          {/* ØµÙØ­Ù‡ Û± (Ù¾Ø´Øª Ø¬Ù„Ø¯ - ÙˆÙ‚ØªÛŒ Ø¨Ø§Ø² Ù…ÛŒâ€ŒØ´ÙˆØ¯ Ø¯Ø± Ù¾Ø§ÛŒÛŒÙ† Ù‚Ø±Ø§Ø± Ù…ÛŒâ€ŒÚ¯ÛŒØ±Ø¯) */}
           <div
-            className="absolute inset-0 bg-white rounded-b-lg shadow-inner p-6"
+            className="absolute inset-0 bg-white rounded-[22px] border-t-2 border-dashed border-gray-300 shadow-inner p-6"
             style={{
               backfaceVisibility: "hidden",
-              transform: "rotateX(180deg)", // برگرداندن محتوا حول محور X
+              transform: "rotateX(180deg)", // Ø¨Ø±Ú¯Ø±Ø¯Ø§Ù†Ø¯Ù† Ù…Ø­ØªÙˆØ§ Ø­ÙˆÙ„ Ù…Ø­ÙˆØ± X
             }}
           >
             <FlightDetails
@@ -136,3 +136,4 @@ const FlightCard: React.FC<FlightCardProps> = ({
 };
 
 export default FlightCard;
+
