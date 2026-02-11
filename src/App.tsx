@@ -9,7 +9,6 @@ import Dashboard from "./pages/Dashboard";
 import FlightListPage from "./pages/FlightListPage";
 import About from "./pages/About";
 import Layout from "./components/Layout";
-import "./App.css";
 
 function App() {
   return (
