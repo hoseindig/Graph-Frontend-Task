@@ -62,15 +62,15 @@ const FlightCard: React.FC<FlightCardProps> = ({
 
   return (
     <div className="flex items-center justify-center  p-4">
-      {/* Container Ø§ØµÙ„ÛŒ - Ø¬Ø§Ø¨Ù‡â€ŒØ¬Ø§ÛŒÛŒ Ø¹Ù…ÙˆØ¯ÛŒ Ø¨Ø±Ø§ÛŒ Ù…Ø±Ú©Ø² Ù…Ø§Ù†Ø¯Ù† Ù‡Ù†Ú¯Ø§Ù… Ø¨Ø§Ø² Ø´Ø¯Ù† */}
+      {/* Main container - vertical shift to keep centered while opening */}
       <motion.div
         className="relative w-full h-[210px] cursor-pointer"
-        animate={{ marginBottom: isOpen ? 200 : 0 }} // Ø¬Ø§Ø¨Ù‡â€ŒØ¬Ø§ÛŒÛŒ Ø¨Ù‡ Ø¨Ø§Ù„Ø§ Ø¨Ù‡ Ø§Ù†Ø¯Ø§Ø²Ù‡ Ù†ØµÙ Ø§Ø±ØªÙØ§Ø¹
+        animate={{ marginBottom: isOpen ? 200 : 0 }} // Move up by roughly half the card height
         transition={{ duration: 0.5, ease: "easeInOut" }}
         style={{ perspective: "1500px" }}
         onClick={() => setIsOpen(!isOpen)}
       >
-        {/* ØµÙØ­Ù‡ Û² (ØµÙØ­Ù‡ Ø«Ø§Ø¨Øª Ú©Ù‡ Ø²ÛŒØ± Ø§Ø³Øª - Ø­Ø§Ù„Ø§ Ø¯Ø± Ù†ÛŒÙ…Ù‡ Ø¨Ø§Ù„Ø§ÛŒÛŒ Ù‚Ø±Ø§Ø± Ù…ÛŒâ€ŒÚ¯ÛŒØ±Ø¯) */}
+        {/* Page 2 (static page underneath, now positioned in the upper half) */}
         <FlightSummary
           flightClass={flightClass}
           departure={{
@@ -86,14 +86,14 @@ const FlightCard: React.FC<FlightCardProps> = ({
           price={price}
         />
 
-        {/* Ù„Ø§ÛŒÙ‡ Ù…ØªØ­Ø±Ú©: Ø±ÙˆÛŒ Ø¬Ù„Ø¯ Ùˆ ØµÙØ­Ù‡ Û± */}
+        {/* Moving layer: front cover and page 1 */}
         <motion.div
-          className="absolute inset-0 z-10 origin-bottom" // Ú†Ø±Ø®Ø´ Ø­ÙˆÙ„ Ù„Ø¨Ù‡ Ù¾Ø§ÛŒÛŒÙ†ÛŒ
+          className="absolute inset-0 z-10 origin-bottom" // Rotate around the bottom edge
           style={{ transformStyle: "preserve-3d" }}
-          animate={{ rotateX: isOpen ? -180 : 0 }} // Ú†Ø±Ø®Ø´ Ø­ÙˆÙ„ Ù…Ø­ÙˆØ± X
+          animate={{ rotateX: isOpen ? -180 : 0 }} // Rotate around the X axis
           transition={{ duration: 0.5, ease: "easeInOut" }}
         >
-          {/* Ø±ÙˆÛŒ Ø¬Ù„Ø¯ (Front Cover) */}
+          {/* Front cover */}
           <FlightFront
             flightClass={flightClass}
             airline={airline}
@@ -112,12 +112,12 @@ const FlightCard: React.FC<FlightCardProps> = ({
             price={price}
           />
 
-          {/* ØµÙØ­Ù‡ Û± (Ù¾Ø´Øª Ø¬Ù„Ø¯ - ÙˆÙ‚ØªÛŒ Ø¨Ø§Ø² Ù…ÛŒâ€ŒØ´ÙˆØ¯ Ø¯Ø± Ù¾Ø§ÛŒÛŒÙ† Ù‚Ø±Ø§Ø± Ù…ÛŒâ€ŒÚ¯ÛŒØ±Ø¯) */}
+          {/* Page 1 (inside of the cover, sits at the bottom when opened) */}
           <div
             className="absolute inset-0 bg-white rounded-[22px] border-t-2 border-dashed border-gray-300 shadow-inner p-6"
             style={{
               backfaceVisibility: "hidden",
-              transform: "rotateX(180deg)", // Ø¨Ø±Ú¯Ø±Ø¯Ø§Ù†Ø¯Ù† Ù…Ø­ØªÙˆØ§ Ø­ÙˆÙ„ Ù…Ø­ÙˆØ± X
+              transform: "rotateX(180deg)", // Flip content around the X axis
             }}
           >
             <FlightDetails
@@ -136,4 +136,3 @@ const FlightCard: React.FC<FlightCardProps> = ({
 };
 
 export default FlightCard;
-
